@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PicSimulator.Model {
     class ProgrammModel {
 
-        private List<int> _opcodes;
+        private Dictionary<int, int> _opcodes;
 
         public ProgrammModel(string filePath) {
             int counter = 0;
@@ -20,18 +20,32 @@ namespace PicSimulator.Model {
                 char[] firstChar = line.ToCharArray();
                 if(char.IsNumber(firstChar[0])) {
                     System.Console.WriteLine(line);
-                    for (int i = 0; i < firstChar.Length; 9) {
-                        //char[] gesChar[1]
-                    }
+                    string befehlNummer =  firstChar[0].ToString() + firstChar[1].ToString() + firstChar[2].ToString() + firstChar[3].ToString();
+                    string befehl =  firstChar[5].ToString() + firstChar[6].ToString() + firstChar[7].ToString() + firstChar[8].ToString();
+                    int befehlInt = Int32.Parse(befehl, System.Globalization.NumberStyles.HexNumber);
+                    int befehlNummerInt = Int32.Parse(befehlNummer, System.Globalization.NumberStyles.HexNumber);
+
+                    System.Console.WriteLine(befehlNummerInt + "   " + befehlInt);
+                    //_opcodes.Add(Int32.Parse(befehlNummer), Int32.Parse(befehl, System.Globalization.NumberStyles.HexNumber));
+                 
                 }
                 counter++;
             }
 
             file.Close();
-            System.Console.WriteLine("There were {0} lines.", counter);
+            //System.Console.WriteLine(_opcodes.ToString());
             // Suspend the screen.
             System.Console.ReadLine();
         }
 
+        public Dictionary<int, int> Opcodes {
+            get {
+                return _opcodes;
+            }
+
+            set {
+                _opcodes = value;
+            }
+        }
     }
 }
