@@ -9,19 +9,21 @@ namespace PicSimulator.Model
 {
     class Befehlsumwandler
     {
-        public Befehlsumwandler(Dictionary<int, int>_opcodes)
-        {
+        Dictionary<int, Befehl> _opcodesObj;
+
+        public Befehlsumwandler(Dictionary<int, int>_opcodes){
+            Dictionary<int, Befehl> opcodesObjImpl = new Dictionary<int, Befehl>();
+
             foreach (KeyValuePair<int, int> opcode in _opcodes) {
-                System.Console.WriteLine(opcode.Key + " " + opcode.Value);
-                wandleBefehl(opcode.Value);
-               
+                Befehl befehl = wandleBefehl(opcode.Value);
+                opcodesObjImpl.Add(opcode.Key, befehl);
             }
-            System.Console.ReadLine();
+            OpcodesObj = opcodesObjImpl;
         }
         private Befehl wandleBefehl(int befehlOpcode) {
             //BitArray bit = new BitArray(new int[] { befehlOpcode });
 
-            #region ADDWF
+            #region Befehlscodemaske
             if ((befehlOpcode & ADDLW) == ADDLW) {
                 return newADDLW(befehlOpcode);
             }
@@ -130,99 +132,97 @@ namespace PicSimulator.Model
             #endregion
 
             //TODO Fehlermeldung
-            System.Console.WriteLine("FEHLER");
+            System.Console.WriteLine("FEHLER: es konnte keine Bitmaske gefunden werden");
 
             return null;
             
         }
 
         private Befehl newANDWF(int befehlOpcode) {
-            throw new NotImplementedException();
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlANDWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newADDWF(int befehlOpcode) {
-            System.Console.WriteLine("newADDWF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlADDWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newCLRF(int befehlOpcode) {
-            System.Console.WriteLine("newCLRF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlCLRF((befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
         private Befehl newCLRW(int befehlOpcode) {
-            System.Console.WriteLine("newCLRW");
-            return null;
+            return new BefehlCLRW();
         }
 
         private Befehl newCOMF(int befehlOpcode) {
-            System.Console.WriteLine("newCOMF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlCOMF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newDECF(int befehlOpcode) {
-            System.Console.WriteLine("newDECF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlDECF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newDECFSZ(int befehlOpcode) {
-            System.Console.WriteLine("newDECFSZ");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlDECFSZ((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newINCF(int befehlOpcode) {
-            System.Console.WriteLine("newINCF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlINCF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newINCFSZ(int befehlOpcode) {
-            System.Console.WriteLine("newINCFSZ");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlINCFSZ((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newIORWF(int befehlOpcode) {
-            System.Console.WriteLine("newIORWF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlIORWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newMOVF(int befehlOpcode) {
-            System.Console.WriteLine("newMOVF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlMOVF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newMOVWF(int befehlOpcode) {
-            System.Console.WriteLine("newMOVWF");
-            return null;
+            return new BefehlMOVWF((befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
         private Befehl newNOP(int befehlOpcode) {
-            System.Console.WriteLine("newNOP");
-            return null;
+            return new BefehlNOP();
         }
 
         private Befehl newRLF(int befehlOpcode) {
-            System.Console.WriteLine("newRLF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlRLF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newRRF(int befehlOpcode) {
-            System.Console.WriteLine("newRRF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlRRF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newSWAPF(int befehlOpcode) {
-            System.Console.WriteLine("newSWAPF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlSWAPF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newSUBWF(int befehlOpcode) {
-            System.Console.WriteLine("newSUBWF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlSUBWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newXORWF(int befehlOpcode) {
-            System.Console.WriteLine("newXORWF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlXORWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
         private Befehl newBCF(int befehlOpcode) {
@@ -246,69 +246,55 @@ namespace PicSimulator.Model
         }
 
         private Befehl newADDLW(int befehlOpcode) {
-            System.Console.WriteLine("newADDLW");
-            return null;
+            return new BefehlADDLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
         private Befehl newANDLW(int befehlOpcode) {
-            System.Console.WriteLine("newANDLW");
-            return null;
+            return new BefehlANDLW((befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
         private Befehl newCALL(int befehlOpcode) {
-            System.Console.WriteLine("newCALL");
-            return null;
+            return new BefehlCALL((befehlOpcode & Convert.ToInt32("11111111111", 2)));
         }
 
         private Befehl newCLRWDT(int befehlOpcode) {
-            System.Console.WriteLine("newCLRWDT");
-            return null;
+            return new BefehlCLRWDT();
         }
 
         private Befehl newGOTO(int befehlOpcode) {
-            System.Console.WriteLine("newGOTO");
-            return null;
+            return new BefehlGOTO((befehlOpcode & Convert.ToInt32("11111111111", 2)));
         }
 
         private Befehl newIORLW(int befehlOpcode) {
-            System.Console.WriteLine("newIORLW");
-            return null;
+            return new BefehlIORLW((befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
         private Befehl newMOVLW(int befehlOpcode) {
-            System.Console.WriteLine("newMOVLW");
-            return null;
+            return new BefehlMOVLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
         private Befehl newRETFIE(int befehlOpcode) {
-            System.Console.WriteLine("newRETFIE");
-            return null;
+            return new BefehlRETFIE();
         }
 
         private Befehl newRETLW(int befehlOpcode) {
-            System.Console.WriteLine("newRETLW");
-            return null;
+            return new BefehlRETLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
         private Befehl newRETURN(int befehlOpcode) {
-            System.Console.WriteLine("newRETURN");
-            return null;
+            return new BefehlRETURN();
         }
 
         private Befehl newSLEEP(int befehlOpcode) {
-            System.Console.WriteLine("newSLEEP");
-            return null;
+            return new BefehlSLEEP();
         }
 
         private Befehl newSUBLW(int befehlOpcode) {
-            System.Console.WriteLine("newSUBLW");
-            return null;
+            return new BefehlSUBLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
         private Befehl newXORLW(int befehlOpcode) {
-            System.Console.WriteLine("newXORLW");
-            Befehl befehl = new BefehlXORLW();
-            return befehl;
+            return new BefehlXORLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
         #region Befehlsliste
@@ -347,6 +333,16 @@ namespace PicSimulator.Model
         private int SLEEP = Convert.ToInt32("00000001100011", 2);
         private int SUBLW = Convert.ToInt32("11110000000000", 2);
         private int XORLW = Convert.ToInt32("11101000000000", 2);
+
+        public Dictionary<int, Befehl> OpcodesObj {
+            get {
+                return _opcodesObj;
+            }
+
+            set {
+                _opcodesObj = value;
+            }
+        }
         #endregion
     }
 }

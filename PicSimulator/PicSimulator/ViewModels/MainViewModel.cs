@@ -12,6 +12,7 @@ namespace PicSimulator.ViewModels {
         #region fields
         private string _openFileContent;
         private string _fileNameContent;
+       
 
 
         #endregion //fields
@@ -74,6 +75,9 @@ namespace PicSimulator.ViewModels {
                 string filename = dlg.FileName;
                 ProgrammModel programModel = new ProgrammModel(filename);
                 Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
+                foreach(KeyValuePair<int,Befehl> befehl in wandler.OpcodesObj) {
+                    System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
+                }
             }
         }
         #endregion //methods
