@@ -77,7 +77,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Model\Befehl1.cs" />
     <Compile Include="Model\Befehlsumwandler.cs" />
+    <Compile Include="Model\BefehlXORLW.cs" />
+    <Compile Include="Model\Interface1.cs" />
     <Compile Include="Model\ProgrammModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">

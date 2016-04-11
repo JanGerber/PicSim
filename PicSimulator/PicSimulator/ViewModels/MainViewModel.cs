@@ -73,7 +73,7 @@ namespace PicSimulator.ViewModels {
                 // Open document 
                 string filename = dlg.FileName;
                 ProgrammModel programModel = new ProgrammModel(filename);
-                programModel.Opcodes
+                Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
             }
         }
         #endregion //methods

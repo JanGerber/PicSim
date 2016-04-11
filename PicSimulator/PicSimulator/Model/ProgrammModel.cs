@@ -12,20 +12,20 @@ namespace PicSimulator.Model {
         public ProgrammModel(string filePath) {
             int lineCounter = 0;
             string line;
-
+            _opcodes = new Dictionary<int, int>();
             // Read the file line by line.
             System.IO.StreamReader file = new System.IO.StreamReader(@filePath);
             while ((line = file.ReadLine()) != null) {
                 //System.Console.WriteLine(line);
                 char[] firstChar = line.ToCharArray();
                 if(char.IsNumber(firstChar[0])) {
-                    System.Console.WriteLine(line);
+                   // System.Console.WriteLine(line);
                     string befehlNummer =  firstChar[0].ToString() + firstChar[1].ToString() + firstChar[2].ToString() + firstChar[3].ToString();
                     string befehl =  firstChar[5].ToString() + firstChar[6].ToString() + firstChar[7].ToString() + firstChar[8].ToString();
                     int befehlInt = Int32.Parse(befehl, System.Globalization.NumberStyles.HexNumber);
                     int befehlNummerInt = Int32.Parse(befehlNummer, System.Globalization.NumberStyles.HexNumber);
 
-                    System.Console.WriteLine(befehlNummerInt + "   " + befehlInt);
+                    //System.Console.WriteLine(befehlNummerInt + "   " + befehlInt);
                     _opcodes.Add(befehlNummerInt, befehlInt);
           
                 }
@@ -33,9 +33,10 @@ namespace PicSimulator.Model {
             }
 
             file.Close();
+            Opcodes = _opcodes;
             //System.Console.WriteLine(_opcodes.ToString());
             // Suspend the screen.
-            System.Console.ReadLine();
+           // 
         }
 
         public Dictionary<int, int> Opcodes {
