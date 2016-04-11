@@ -45,7 +45,7 @@ namespace PicSimulator.ViewModels {
 
         #region constructor
         public MainViewModel() {
-            OpenFileContent = "test";
+            OpenFileContent = "Datei öffnen";
         }
 
 
@@ -73,6 +73,7 @@ namespace PicSimulator.ViewModels {
                 // Open document 
                 string filename = dlg.FileName;
                 ProgrammModel programModel = new ProgrammModel(filename);
+                programModel.Opcodes
             }
         }
         #endregion //methods

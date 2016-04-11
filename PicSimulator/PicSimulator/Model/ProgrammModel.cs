@@ -10,10 +10,10 @@ namespace PicSimulator.Model {
         private Dictionary<int, int> _opcodes;
 
         public ProgrammModel(string filePath) {
-            int counter = 0;
+            int lineCounter = 0;
             string line;
 
-            // Read the file and display it line by line.
+            // Read the file line by line.
             System.IO.StreamReader file = new System.IO.StreamReader(@filePath);
             while ((line = file.ReadLine()) != null) {
                 //System.Console.WriteLine(line);
@@ -26,10 +26,10 @@ namespace PicSimulator.Model {
                     int befehlNummerInt = Int32.Parse(befehlNummer, System.Globalization.NumberStyles.HexNumber);
 
                     System.Console.WriteLine(befehlNummerInt + "   " + befehlInt);
-                    //_opcodes.Add(Int32.Parse(befehlNummer), Int32.Parse(befehl, System.Globalization.NumberStyles.HexNumber));
-                 
+                    _opcodes.Add(befehlNummerInt, befehlInt);
+          
                 }
-                counter++;
+                lineCounter++;
             }
 
             file.Close();
