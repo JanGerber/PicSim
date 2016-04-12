@@ -78,6 +78,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Model\Befehl.cs" />
+    <Compile Include="Model\BefehleImpl\BefehlBCF.cs" />
+    <Compile Include="Model\BefehleImpl\BefehlBSF.cs" />
+    <Compile Include="Model\BefehleImpl\BefehlBTFSC.cs" />
+    <Compile Include="Model\BefehleImpl\BefehlBTFSS.cs" />
     <Compile Include="Model\BefehleImpl\BefehlADDWF.cs" />
     <Compile Include="Model\BefehleImpl\BefehlCLRF.cs" />
     <Compile Include="Model\BefehleImpl\BefehlCLRW.cs" />

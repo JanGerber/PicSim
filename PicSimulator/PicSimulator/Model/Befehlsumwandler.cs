@@ -226,23 +226,23 @@ namespace PicSimulator.Model
         }
 
         private Befehl newBCF(int befehlOpcode) {
-            System.Console.WriteLine("newBCF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlBCF((befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
         private Befehl newBSF(int befehlOpcode) {
-            System.Console.WriteLine("newBSF");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlBSF((befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
         private Befehl newBTFSC(int befehlOpcode) {
-            System.Console.WriteLine("newBTFSC");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlBTFSC((befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
         private Befehl newBTFSS(int befehlOpcode) {
-            System.Console.WriteLine("newBTFSS");
-            return null;
+            BitArray bitArray = new BitArray(new int[] { befehlOpcode });
+            return new BefehlBTFSS((befehlOpcode & Convert.ToInt32("1111111", 2)),(int)((befehlOpcode & Convert.ToInt32("1110000000", 2))/128));
         }
 
         private Befehl newADDLW(int befehlOpcode) {
