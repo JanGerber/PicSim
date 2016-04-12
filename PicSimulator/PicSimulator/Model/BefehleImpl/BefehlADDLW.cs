@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PicSimulator.ViewModels;
+using System;
 
 namespace PicSimulator.Model {
     class BefehlADDLW : Befehl {
@@ -27,7 +28,7 @@ namespace PicSimulator.Model {
             }
         }
 
-        public int ausfuehren() {
+        public int ausfuehren(ref Speicher speicher) {
             throw new NotImplementedException();
         }
     }

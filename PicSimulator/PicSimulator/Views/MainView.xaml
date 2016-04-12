@@ -13,11 +13,11 @@
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height=".3*"/>
-            <RowDefinition Height=".3*"/>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition Height=".6*"/>
             <RowDefinition Height=".3*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="OpenFile" Grid.Row="1" Grid.Column="1" Content="{Binding OpenFileContent}"/>
+        <Button x:Name="OpenFile" Grid.Row="0" Grid.Column="0" Content="{Binding OpenFileContent}"/>
         <Label x:Name="FileName" Grid.Row="2" Grid.Column="1" Content="{Binding FileNameContent}"/>
     </Grid>
     

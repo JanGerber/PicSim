@@ -12,7 +12,8 @@ namespace PicSimulator.ViewModels {
         #region fields
         private string _openFileContent;
         private string _fileNameContent;
-       
+        private Dictionary<int, Befehl> _opcodesObj;
+        private Speicher speicher;
 
 
         #endregion //fields
@@ -39,6 +40,16 @@ namespace PicSimulator.ViewModels {
                 NotifyOfPropertyChange(() => FileNameContent);
 
       
+            }
+        }
+
+        public Dictionary<int, Befehl> OpcodesObj {
+            get {
+                return _opcodesObj;
+            }
+
+            set {
+                _opcodesObj = value;
             }
         }
 
@@ -75,10 +86,21 @@ namespace PicSimulator.ViewModels {
                 string filename = dlg.FileName;
                 ProgrammModel programModel = new ProgrammModel(filename);
                 Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
+                OpcodesObj = wandler.OpcodesObj;
                 foreach(KeyValuePair<int,Befehl> befehl in wandler.OpcodesObj) {
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
                 }
+            } else {
+                //TODO Fehler
             }
+            
+
+        }
+        public void StartProgramm() {
+
+        }
+        public void StopProgramm() {
+
         }
         #endregion //methods
 

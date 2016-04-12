@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PicSimulator.ViewModels;
+using System;
 namespace PicSimulator.Model {
     internal class BefehlXORWF : Befehl {
         private string befehlsName = "XORWF";
@@ -25,7 +26,7 @@ namespace PicSimulator.Model {
                 return parameter2.ToString();
             }
         }
-        public int ausfuehren() {
+        public int ausfuehren(ref Speicher speicher) {
             throw new NotImplementedException();
         }
     }
