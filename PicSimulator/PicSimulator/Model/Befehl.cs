@@ -17,5 +17,9 @@ namespace PicSimulator.Model {
         string Parameter2 {
             get;
         }
+        bool Breakpoint {
+            get;
+            set;
+        }
     }
 }
