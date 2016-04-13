@@ -12,7 +12,7 @@ namespace PicSimulator.ViewModels {
         #region fields
         private string _openFileContent;
         private string _fileNameContent;
-        private Dictionary<int, Befehl> _opcodesObj;
+        private Dictionary<int, Befehl> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist ein Objekt
         private Speicher speicher;
 
 

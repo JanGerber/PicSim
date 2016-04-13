@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PicSimulator.Model {
-    interface Befehl {
+
+namespace PicSimulator.Model {  //Namespace stellt sowas wie ein Package dar
+    interface Befehl {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
         int ausfuehren(ref Speicher speicher);
         string BefehlsName {
             get;
