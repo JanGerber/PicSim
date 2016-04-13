@@ -6,6 +6,7 @@ namespace PicSimulator.Model {
         private string befehlsName = "BCF";
         private int parameter1;
         private int parameter2;
+        private bool breakpoint;
 
         public BefehlBCF(int parameter1, int parameter2) {
             this.parameter1 = parameter1;
@@ -25,6 +26,15 @@ namespace PicSimulator.Model {
         public string Parameter2 {
             get {
                 return parameter2.ToString();
+            }
+        }
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
         public int ausfuehren(ref Speicher speicher) {

@@ -4,6 +4,7 @@ using System;
 namespace PicSimulator.Model {
     class BefehlRETURN : Befehl {
         private string befehlsName = "RETURN";
+        private bool breakpoint;
 
         public BefehlRETURN() {
 
@@ -23,6 +24,15 @@ namespace PicSimulator.Model {
         public string Parameter2 {
             get {
                 return "";
+            }
+        }
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
         public int ausfuehren(ref Speicher speicher) {

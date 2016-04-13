@@ -4,6 +4,7 @@ using System;
 namespace PicSimulator.Model {
     class BefehlSLEEP : Befehl {
         private string befehlsName = "SLEEP";
+        private bool breakpoint;
 
         public BefehlSLEEP() {
 
@@ -23,6 +24,15 @@ namespace PicSimulator.Model {
         public string Parameter2 {
             get {
                 return "";
+            }
+        }
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
         public int ausfuehren(ref Speicher speicher) {

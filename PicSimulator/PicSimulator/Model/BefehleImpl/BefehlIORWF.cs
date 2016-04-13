@@ -6,6 +6,7 @@ namespace PicSimulator.Model {
         private string befehlsName = "IORWF";
         private int parameter1;
         private bool parameter2;
+        private bool breakpoint;
 
         public BefehlIORWF(int parameter1, bool parameter2) {
             this.parameter1 = parameter1;
@@ -25,6 +26,15 @@ namespace PicSimulator.Model {
         public string Parameter2 {
             get {
                 return parameter2.ToString();
+            }
+        }
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
         public int ausfuehren(ref Speicher speicher) {

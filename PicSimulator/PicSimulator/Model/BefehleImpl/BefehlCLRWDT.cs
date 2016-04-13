@@ -4,6 +4,7 @@ using System;
 namespace PicSimulator.Model {
      class BefehlCLRWDT : Befehl {
         private string befehlsName = "CLRWDT";
+        private bool breakpoint;
 
         public BefehlCLRWDT() {
 
@@ -22,6 +23,15 @@ namespace PicSimulator.Model {
         public string Parameter2 {
             get {
                 return "";
+            }
+        }
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
         public int ausfuehren(ref Speicher speicher) {

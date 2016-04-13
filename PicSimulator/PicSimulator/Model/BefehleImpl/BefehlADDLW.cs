@@ -5,6 +5,7 @@ namespace PicSimulator.Model {
     class BefehlADDLW : Befehl {
         private string befehlsName = "ADDLW";
         private int parameter1;
+        private bool breakpoint;
 
         public BefehlADDLW(int parameter1) {
             this.parameter1 = parameter1;
@@ -13,6 +14,16 @@ namespace PicSimulator.Model {
         public string BefehlsName {
             get {
                 return befehlsName;
+            }
+        }
+
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
 

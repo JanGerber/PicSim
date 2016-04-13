@@ -5,6 +5,7 @@ namespace PicSimulator.Model {
     class BefehlXORLW : Befehl {
         private string befehlsName = "XORLW";
         private int parameter1;
+        private bool breakpoint;
 
         public BefehlXORLW(int parameter1) {
             this.parameter1 = parameter1;
@@ -23,6 +24,15 @@ namespace PicSimulator.Model {
         public string Parameter2 {
             get {
                 return "";
+            }
+        }
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
         public int ausfuehren(ref Speicher speicher) {

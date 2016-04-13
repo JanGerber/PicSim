@@ -5,6 +5,7 @@ namespace PicSimulator.Model {
     class BefehlCALL : Befehl {
         private string befehlsName = "CALL";
         private int parameter1;
+        private bool breakpoint;
 
         public BefehlCALL(int parameter1) {
             this.parameter1 = parameter1;
@@ -23,6 +24,15 @@ namespace PicSimulator.Model {
         public string Parameter2 {
             get {
                 return "";
+            }
+        }
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
             }
         }
         public int ausfuehren(ref Speicher speicher) {
