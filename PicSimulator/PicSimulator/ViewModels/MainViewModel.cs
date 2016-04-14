@@ -102,6 +102,7 @@ namespace PicSimulator.ViewModels {
         public void StartProgramm() {
             Console.WriteLine("Startbutton gedrueckt");
             System.Threading.Thread newThread = new System.Threading.Thread(StartProgrammThread);
+            newThread.Start();
         }
         public void StopProgramm() {
             Console.WriteLine("Stopbutton gedrueckt");
