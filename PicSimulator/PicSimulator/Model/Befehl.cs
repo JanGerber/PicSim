@@ -7,21 +7,44 @@ using System.Threading.Tasks;
 
 
 namespace PicSimulator.Model {  //Namespace stellt sowas wie ein Package dar
-    interface Befehl {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
-        int ausfuehren(ref Speicher speicher);
-        string BefehlsName {
+    class Befehl {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
+        protected bool breakpoint;
+        protected int programmCounter;
+        protected string befehlsName;
+
+        public virtual int ausfuehren(ref Speicher speicher) {
+             throw new NotImplementedException(); }
+        public string BefehlsName {
+            get {
+                return befehlsName;
+            }
+            set {
+                this.befehlsName = value;
+            }
+        }
+        public virtual string Parameter1 {
             get;
         }
-        string Parameter1 {
+        public virtual string Parameter2 {
             get;
         }
-        string Parameter2 {
-            get;
+
+        public bool Breakpoint {
+            get {
+                return breakpoint;
+            }
+
+            set {
+                this.breakpoint = value;
+            }
         }
-       
-        bool Breakpoint {
-            get;
-            set;
+        public int ProgrammCounter {
+            get {
+                return programmCounter;
+            }
+            set {
+                this.programmCounter = value;
+            }
         }
     }
 }
