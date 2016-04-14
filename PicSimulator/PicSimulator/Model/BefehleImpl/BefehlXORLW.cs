@@ -26,6 +26,12 @@ namespace PicSimulator.Model {
 
         public override int ausfuehren(ref Speicher speicher) {
             speicher.WRegister ^= (byte) parameter1;
+            //Status Affected: Z
+            if (speicher.WRegister == 0) {
+                speicher.setZeroBit(true);
+            } else {
+                speicher.setZeroBit(false);
+            }
             return ++programmCounter;
         }
     }
