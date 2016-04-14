@@ -11,6 +11,7 @@ namespace PicSimulator.Model {  //Namespace stellt sowas wie ein Package dar
         protected bool breakpoint = false;
         protected int programmCounter;
         protected string befehlsName;
+        protected uint cycles;
 
         public virtual int ausfuehren(ref Speicher speicher) {
              throw new NotImplementedException(); }

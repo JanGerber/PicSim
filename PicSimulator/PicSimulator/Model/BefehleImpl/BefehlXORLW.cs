@@ -32,6 +32,8 @@ namespace PicSimulator.Model {
             } else {
                 speicher.setZeroBit(false);
             }
+            //Cycles
+            speicher.
             return 1 + programmCounter;
         }
     }

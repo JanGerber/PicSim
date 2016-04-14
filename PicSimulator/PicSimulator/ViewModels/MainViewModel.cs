@@ -120,7 +120,8 @@ namespace PicSimulator.ViewModels {
                 if (speicher == null) {
                     speicher = new Speicher();
                 }
-                    programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);  
+                System.Console.WriteLine(programmCounter + " " + _opcodesObj.ElementAt(programmCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(programmCounter).Value.Parameter1 + " | " + speicher.WRegister);
+                programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);  
             }
         }
         public void StartProgrammThread() {
