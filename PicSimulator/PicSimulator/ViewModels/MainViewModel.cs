@@ -92,6 +92,7 @@ namespace PicSimulator.ViewModels {
                 foreach(KeyValuePair<int,Befehl> befehl in wandler.OpcodesObj) {
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
                 }
+                StartProgramm();
             } else {
                 //TODO Fehler
             }
@@ -104,7 +105,8 @@ namespace PicSimulator.ViewModels {
                 if(speicher == null) {
                     speicher = new Speicher();
                 }
-                while (!stopProgramm && _opcodesObj.ElementAt(programmCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+                while (!stopProgramm && !_opcodesObj.ElementAt(programmCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+                    System.Console.WriteLine(programmCounter + " " + _opcodesObj.ElementAt(programmCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(programmCounter).Value.Parameter1 + " | " + speicher.WRegister);
                     programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);
                 }
             } 

@@ -5,9 +5,10 @@ namespace PicSimulator.Model {
     internal class BefehlMOVWF : Befehl {
         private int parameter1;
 
-        public BefehlMOVWF(int parameter1) {
+        public BefehlMOVWF(int programmCounter, int parameter1) {
             this.parameter1 = parameter1;
             befehlsName = "MOVWF";
+            this.programmCounter = programmCounter;
         }
 
         public override string Parameter1 {

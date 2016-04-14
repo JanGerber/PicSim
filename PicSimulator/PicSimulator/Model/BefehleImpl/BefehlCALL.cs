@@ -5,9 +5,10 @@ namespace PicSimulator.Model {
     class BefehlCALL : Befehl {
         private int parameter1;
 
-        public BefehlCALL(int parameter1) {
+        public BefehlCALL(int programmCounter, int parameter1) {
             this.parameter1 = parameter1;
             befehlsName = "CALL";
+            this.programmCounter = programmCounter;
         }
 
         public override string Parameter1 {

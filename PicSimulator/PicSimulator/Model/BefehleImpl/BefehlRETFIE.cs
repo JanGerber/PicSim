@@ -4,8 +4,9 @@ using System;
 namespace PicSimulator.Model {
     internal class BefehlRETFIE : Befehl {
 
-        public BefehlRETFIE() {
+        public BefehlRETFIE(int programmCounter) {
             befehlsName = "RETFIE";
+            this.programmCounter = programmCounter;
         }
 
         public override string Parameter1 {

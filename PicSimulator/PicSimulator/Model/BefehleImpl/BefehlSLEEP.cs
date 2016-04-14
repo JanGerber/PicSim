@@ -4,8 +4,9 @@ using System;
 namespace PicSimulator.Model {
     class BefehlSLEEP : Befehl {
 
-        public BefehlSLEEP() {
+        public BefehlSLEEP(int programmCounter) {
             befehlsName = "SLEEP";
+            this.programmCounter = programmCounter;
         }
 
 

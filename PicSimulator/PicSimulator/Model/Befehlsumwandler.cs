@@ -15,119 +15,119 @@ namespace PicSimulator.Model
             Dictionary<int, Befehl> opcodesObjImpl = new Dictionary<int, Befehl>();
 
             foreach (KeyValuePair<int, int> opcode in _opcodes) {
-                Befehl befehl = wandleBefehl(opcode.Value);
+                Befehl befehl = wandleBefehl(opcode.Key, opcode.Value);
                 opcodesObjImpl.Add(opcode.Key, befehl);
             }
             OpcodesObj = opcodesObjImpl;
         }
-        private Befehl wandleBefehl(int befehlOpcode) {
+        private Befehl wandleBefehl(int key, int befehlOpcode) {
             //BitArray bit = new BitArray(new int[] { befehlOpcode });
 
             #region Befehlscodemaske
             if ((befehlOpcode & ADDLW) == ADDLW) {
-                return newADDLW(befehlOpcode);
+                return newADDLW(key, befehlOpcode);
             }
             if ((befehlOpcode & SUBLW) == SUBLW) {
-                return newSUBLW(befehlOpcode);
+                return newSUBLW(key, befehlOpcode);
             }
             if ((befehlOpcode & XORLW) == XORLW) {
-                return newXORLW(befehlOpcode);
+                return newXORLW(key, befehlOpcode);
             }
             if ((befehlOpcode & ANDLW) == ANDLW) {
-                return newANDLW(befehlOpcode);
+                return newANDLW(key, befehlOpcode);
             }
             if ((befehlOpcode & IORLW) == IORLW) {
-                return newIORLW(befehlOpcode);
+                return newIORLW(key, befehlOpcode);
             }
             if ((befehlOpcode & RETLW) == RETLW) {
-                return newRETLW(befehlOpcode);
+                return newRETLW(key, befehlOpcode);
             }
             if ((befehlOpcode & MOVLW) == MOVLW) {
-                return newMOVLW(befehlOpcode);
+                return newMOVLW(key, befehlOpcode);
             }
             if ((befehlOpcode & GOTO) == GOTO) {
-                return newGOTO(befehlOpcode);
+                return newGOTO(key, befehlOpcode);
             }
             if ((befehlOpcode & CALL) == CALL) {
-                return newCALL(befehlOpcode);
+                return newCALL(key, befehlOpcode);
             }
             if ((befehlOpcode & BTFSS) == BTFSS) {
-                return newBTFSS(befehlOpcode);
+                return newBTFSS(key, befehlOpcode);
             }
             if ((befehlOpcode & BTFSC) == BTFSC) {
-                return newBTFSC(befehlOpcode);
+                return newBTFSC(key, befehlOpcode);
             }
             if ((befehlOpcode & BSF) == BSF) {
-                return newBSF(befehlOpcode);
+                return newBSF(key, befehlOpcode);
             }
             if ((befehlOpcode & BCF) == BCF) {
-                return newBCF(befehlOpcode);
+                return newBCF(key, befehlOpcode);
             }
             if ((befehlOpcode & INCFSZ) == INCFSZ) {
-                return newINCFSZ(befehlOpcode);
+                return newINCFSZ(key, befehlOpcode);
             }
             if ((befehlOpcode & SWAPF) == SWAPF) {
-                return newSWAPF(befehlOpcode);
+                return newSWAPF(key, befehlOpcode);
             }
             if ((befehlOpcode & RLF) == RLF) {
-                return newRLF(befehlOpcode);
+                return newRLF(key, befehlOpcode);
             }
             if ((befehlOpcode & RRF) == RRF) {
-                return newRRF(befehlOpcode);
+                return newRRF(key, befehlOpcode);
             }
             if ((befehlOpcode & DECFSZ) == DECFSZ) {
-                return newDECFSZ(befehlOpcode);
+                return newDECFSZ(key, befehlOpcode);
             }
             if ((befehlOpcode & INCF) == INCF) {
-                return newINCF(befehlOpcode);
+                return newINCF(key, befehlOpcode);
             }
             if ((befehlOpcode & COMF) == COMF) {
-                return newCOMF(befehlOpcode);
+                return newCOMF(key, befehlOpcode);
             }
             if ((befehlOpcode & MOVF) == MOVF) {
-                return newMOVF(befehlOpcode);
+                return newMOVF(key, befehlOpcode);
             }
             if ((befehlOpcode & ADDWF) == ADDWF) {
-                return newADDWF(befehlOpcode);
+                return newADDWF(key, befehlOpcode);
             }
             if ((befehlOpcode & XORWF) == XORWF) {
-                return newXORWF(befehlOpcode);
+                return newXORWF(key, befehlOpcode);
             }
             if ((befehlOpcode & ANDWF) == ANDWF) {
-                return newANDWF(befehlOpcode);
+                return newANDWF(key, befehlOpcode);
             }
             if ((befehlOpcode & IORWF) == IORWF) {
-                return newIORWF(befehlOpcode);
+                return newIORWF(key, befehlOpcode);
             }
             if ((befehlOpcode & DECF) == DECF) {
-                return newDECF(befehlOpcode);
+                return newDECF(key, befehlOpcode);
             }
             if ((befehlOpcode & SUBWF) == SUBWF) {
-                return newSUBWF(befehlOpcode);
+                return newSUBWF(key, befehlOpcode);
             }
             if ((befehlOpcode & CLRF) == CLRF) {
-                return newCLRF(befehlOpcode);
+                return newCLRF(key, befehlOpcode);
             }
             if ((befehlOpcode & CLRW) == CLRW) {
-                return newCLRW(befehlOpcode);
+                return newCLRW(key, befehlOpcode);
             }
             if ((befehlOpcode & MOVWF) == MOVWF) {
-                return newMOVWF(befehlOpcode);
+                return newMOVWF(key, befehlOpcode);
             }
             if ((befehlOpcode & CLRWDT) == CLRWDT) {
-                return newCLRWDT(befehlOpcode);
+                return newCLRWDT(key, befehlOpcode);
             }
             if ((befehlOpcode & SLEEP) == SLEEP) {
-                return newSLEEP(befehlOpcode);
+                return newSLEEP(key, befehlOpcode);
             }
             if ((befehlOpcode & RETFIE) == RETFIE) {
-                return newRETFIE(befehlOpcode);
+                return newRETFIE(key, befehlOpcode);
             }
             if ((befehlOpcode & RETURN) == RETURN) {
-                return newRETURN(befehlOpcode);
+                return newRETURN(key, befehlOpcode);
             }
             if ((befehlOpcode & NOP) == NOP) {
-                return newNOP(befehlOpcode);
+                return newNOP(key, befehlOpcode);
             }
             #endregion
 
@@ -138,163 +138,163 @@ namespace PicSimulator.Model
             
         }
 
-        private Befehl newANDWF(int befehlOpcode) {
+        private Befehl newANDWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlANDWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlANDWF(programmCounter,(befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newADDWF(int befehlOpcode) {
+        private Befehl newADDWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlADDWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlADDWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newCLRF(int befehlOpcode) {
+        private Befehl newCLRF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlCLRF((befehlOpcode & Convert.ToInt32("1111111", 2)));
+            return new BefehlCLRF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newCLRW(int befehlOpcode) {
-            return new BefehlCLRW();
+        private Befehl newCLRW(int programmCounter, int befehlOpcode) {
+            return new BefehlCLRW(programmCounter);
         }
 
-        private Befehl newCOMF(int befehlOpcode) {
+        private Befehl newCOMF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlCOMF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlCOMF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newDECF(int befehlOpcode) {
+        private Befehl newDECF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlDECF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlDECF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newDECFSZ(int befehlOpcode) {
+        private Befehl newDECFSZ(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlDECFSZ((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlDECFSZ(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newINCF(int befehlOpcode) {
+        private Befehl newINCF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlINCF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlINCF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newINCFSZ(int befehlOpcode) {
+        private Befehl newINCFSZ(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlINCFSZ((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlINCFSZ(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newIORWF(int befehlOpcode) {
+        private Befehl newIORWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlIORWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlIORWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newMOVF(int befehlOpcode) {
+        private Befehl newMOVF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlMOVF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlMOVF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newMOVWF(int befehlOpcode) {
-            return new BefehlMOVWF((befehlOpcode & Convert.ToInt32("1111111", 2)));
+        private Befehl newMOVWF(int programmCounter, int befehlOpcode) {
+            return new BefehlMOVWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newNOP(int befehlOpcode) {
-            return new BefehlNOP();
+        private Befehl newNOP(int programmCounter, int befehlOpcode) {
+            return new BefehlNOP(programmCounter);
         }
 
-        private Befehl newRLF(int befehlOpcode) {
+        private Befehl newRLF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlRLF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlRLF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newRRF(int befehlOpcode) {
+        private Befehl newRRF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlRRF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlRRF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newSWAPF(int befehlOpcode) {
+        private Befehl newSWAPF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlSWAPF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlSWAPF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newSUBWF(int befehlOpcode) {
+        private Befehl newSUBWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlSUBWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlSUBWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newXORWF(int befehlOpcode) {
+        private Befehl newXORWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlXORWF((befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
+            return new BefehlXORWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newBCF(int befehlOpcode) {
+        private Befehl newBCF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlBCF((befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
+            return new BefehlBCF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
-        private Befehl newBSF(int befehlOpcode) {
+        private Befehl newBSF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlBSF((befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
+            return new BefehlBSF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
-        private Befehl newBTFSC(int befehlOpcode) {
+        private Befehl newBTFSC(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlBTFSC((befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
+            return new BefehlBTFSC(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
-        private Befehl newBTFSS(int befehlOpcode) {
+        private Befehl newBTFSS(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
-            return new BefehlBTFSS((befehlOpcode & Convert.ToInt32("1111111", 2)),(int)((befehlOpcode & Convert.ToInt32("1110000000", 2))/128));
+            return new BefehlBTFSS(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)),(int)((befehlOpcode & Convert.ToInt32("1110000000", 2))/128));
         }
 
-        private Befehl newADDLW(int befehlOpcode) {
-            return new BefehlADDLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
+        private Befehl newADDLW(int programmCounter, int befehlOpcode) {
+            return new BefehlADDLW(programmCounter, (befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newANDLW(int befehlOpcode) {
-            return new BefehlANDLW((befehlOpcode & Convert.ToInt32("1111111", 2)));
+        private Befehl newANDLW(int programmCounter, int befehlOpcode) {
+            return new BefehlANDLW(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newCALL(int befehlOpcode) {
-            return new BefehlCALL((befehlOpcode & Convert.ToInt32("11111111111", 2)));
+        private Befehl newCALL(int programmCounter, int befehlOpcode) {
+            return new BefehlCALL(programmCounter, (befehlOpcode & Convert.ToInt32("11111111111", 2)));
         }
 
-        private Befehl newCLRWDT(int befehlOpcode) {
-            return new BefehlCLRWDT();
+        private Befehl newCLRWDT(int programmCounter, int befehlOpcode) {
+            return new BefehlCLRWDT(programmCounter);
         }
 
-        private Befehl newGOTO(int befehlOpcode) {
-            return new BefehlGOTO((befehlOpcode & Convert.ToInt32("11111111111", 2)));
+        private Befehl newGOTO(int programmCounter, int befehlOpcode) {
+            return new BefehlGOTO(programmCounter, (befehlOpcode & Convert.ToInt32("11111111111", 2)));
         }
 
-        private Befehl newIORLW(int befehlOpcode) {
-            return new BefehlIORLW((befehlOpcode & Convert.ToInt32("1111111", 2)));
+        private Befehl newIORLW(int programmCounter, int befehlOpcode) {
+            return new BefehlIORLW(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newMOVLW(int befehlOpcode) {
-            return new BefehlMOVLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
+        private Befehl newMOVLW(int programmCounter, int befehlOpcode) {
+            return new BefehlMOVLW(programmCounter, (befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newRETFIE(int befehlOpcode) {
-            return new BefehlRETFIE();
+        private Befehl newRETFIE(int programmCounter, int befehlOpcode) {
+            return new BefehlRETFIE(programmCounter);
         }
 
-        private Befehl newRETLW(int befehlOpcode) {
-            return new BefehlRETLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
+        private Befehl newRETLW(int programmCounter, int befehlOpcode) {
+            return new BefehlRETLW(programmCounter,(befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newRETURN(int befehlOpcode) {
-            return new BefehlRETURN();
+        private Befehl newRETURN(int programmCounter, int befehlOpcode) {
+            return new BefehlRETURN(programmCounter);
         }
 
-        private Befehl newSLEEP(int befehlOpcode) {
-            return new BefehlSLEEP();
+        private Befehl newSLEEP(int programmCounter, int befehlOpcode) {
+            return new BefehlSLEEP(programmCounter);
         }
 
-        private Befehl newSUBLW(int befehlOpcode) {
-            return new BefehlSUBLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
+        private Befehl newSUBLW(int programmCounter, int befehlOpcode) {
+            return new BefehlSUBLW(programmCounter,(befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newXORLW(int befehlOpcode) {
-            return new BefehlXORLW((befehlOpcode & Convert.ToInt32("11111111", 2)));
+        private Befehl newXORLW(int programmCounter, int befehlOpcode) {
+            return new BefehlXORLW(programmCounter,(befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
         #region Befehlsliste

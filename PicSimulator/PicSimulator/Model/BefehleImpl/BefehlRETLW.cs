@@ -6,9 +6,10 @@ namespace PicSimulator.Model {
         private int parameter1;
 
 
-        public BefehlRETLW(int parameter1) {
+        public BefehlRETLW(int programmCounter, int parameter1) {
             this.parameter1 = parameter1;
             befehlsName = "RETLW";
+            this.programmCounter = programmCounter;
         }
         public override string Parameter1 {
             get {

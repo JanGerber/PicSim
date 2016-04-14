@@ -5,9 +5,10 @@ namespace PicSimulator.Model {
     internal class BefehlCLRF : Befehl {
         private int parameter1;
 
-        public BefehlCLRF(int parameter1) {
+        public BefehlCLRF(int programmCounter, int parameter1) {
             this.parameter1 = parameter1;
             befehlsName = "CLRF";
+            this.programmCounter = programmCounter;
 
         }
         public override string Parameter1 {

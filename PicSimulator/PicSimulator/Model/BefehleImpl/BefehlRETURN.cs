@@ -4,8 +4,9 @@ using System;
 namespace PicSimulator.Model {
     class BefehlRETURN : Befehl {
 
-        public BefehlRETURN() {
+        public BefehlRETURN(int programmCounter) {
             befehlsName = "RETURN";
+            this.programmCounter = programmCounter;
         }
         public override string Parameter1 {
             get {

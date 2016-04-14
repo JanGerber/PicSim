@@ -4,8 +4,9 @@ using System;
 namespace PicSimulator.Model {
     internal class BefehlNOP : Befehl {
 
-        public BefehlNOP() {
+        public BefehlNOP(int programmCounter) {
             befehlsName = "NOP";
+            this.programmCounter = programmCounter;
         }
 
         public override string Parameter1 {

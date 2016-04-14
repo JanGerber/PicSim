@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PicSimulator.Model {  //Namespace stellt sowas wie ein Package dar
     class Befehl {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
-        protected bool breakpoint;
+        protected bool breakpoint = false;
         protected int programmCounter;
         protected string befehlsName;
 

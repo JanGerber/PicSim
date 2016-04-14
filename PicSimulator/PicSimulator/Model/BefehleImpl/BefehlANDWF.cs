@@ -6,10 +6,11 @@ namespace PicSimulator.Model {
         private int parameter1;
         private bool parameter2;
 
-        public BefehlANDWF(int parameter1, bool parameter2) {
+        public BefehlANDWF(int programmCounter, int parameter1, bool parameter2) {
             this.parameter1 = parameter1;
             this.parameter2 = parameter2;
             befehlsName = "ANDWF";
+            this.programmCounter = programmCounter;
         }
         public override string Parameter1 {
             get {

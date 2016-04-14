@@ -5,9 +5,10 @@ namespace PicSimulator.Model {
     class BefehlMOVLW : Befehl {
         private int parameter1;
 
-        public BefehlMOVLW(int parameter1) {
+        public BefehlMOVLW(int programmCounter, int parameter1) {
             this.parameter1 = parameter1;
             befehlsName = "MOVLW";
+            this.programmCounter = programmCounter;
         }
 
         public override string Parameter1 {
@@ -24,7 +25,8 @@ namespace PicSimulator.Model {
 
 
         public override int ausfuehren(ref Speicher speicher) {
-            throw new NotImplementedException();
+            speicher.WRegister = (byte) parameter1;
+            return ++programmCounter;
         }
     }
 }

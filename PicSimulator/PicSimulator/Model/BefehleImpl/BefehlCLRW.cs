@@ -4,8 +4,9 @@ using System;
 namespace PicSimulator.Model {
     internal class BefehlCLRW : Befehl {
 
-        public BefehlCLRW() {
+        public BefehlCLRW(int programmCounter) {
             befehlsName = "CLRW";
+            this.programmCounter = programmCounter;
         }
         public override string Parameter1 {
             get {

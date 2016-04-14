@@ -5,9 +5,10 @@ namespace PicSimulator.Model {
     class BefehlADDLW : Befehl {
         private int parameter1;
 
-        public BefehlADDLW(int parameter1) {
+        public BefehlADDLW(int programmCounter,int parameter1) {
             this.parameter1 = parameter1;
             befehlsName = "ADDLW";
+            this.programmCounter = programmCounter;
         }
         public override string Parameter1 {
             get {
@@ -22,7 +23,8 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            throw new NotImplementedException();
+            speicher.WRegister += (byte)parameter1;
+            return ++programmCounter;
         }
     }
 }

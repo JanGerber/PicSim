@@ -5,9 +5,10 @@ namespace PicSimulator.Model {
     class BefehlGOTO : Befehl {
         private int parameter1;
 
-        public BefehlGOTO(int parameter1) {
+        public BefehlGOTO(int programmCounter, int parameter1) {
             this.parameter1 = parameter1;
             befehlsName = "GOTO";
+            this.programmCounter = programmCounter;
         }
 
         public override string Parameter1 {
@@ -23,7 +24,7 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            throw new NotImplementedException();
+            return parameter1;
         }
     }
 }
