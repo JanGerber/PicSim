@@ -4,11 +4,12 @@ using System.Collections;
 namespace PicSimulator.ViewModels {
     class Speicher {
 
-        private byte[] register = new byte[256];
+        private byte[] register;
         private byte wRegister;
-        private byte PC;
+        private int[] stack;
         private byte ioPorts;
 
+        #region properties
         public byte WRegister {
             get {
                 return wRegister;
@@ -16,16 +17,6 @@ namespace PicSimulator.ViewModels {
 
             set {
                 wRegister = value;
-            }
-        }
-
-        public byte PC1 {
-            get {
-                return PC;
-            }
-
-            set {
-                PC = value;
             }
         }
 
@@ -40,9 +31,10 @@ namespace PicSimulator.ViewModels {
                 ioPorts = value;
             }
         }
-
+        #endregion
         public Speicher() {
             //gesamtes Register mit 0 initialisieren
+                register = new byte[256];
                 byte nullen = Convert.ToByte(0); //0000 0000
                 for (int i = 0; i < register.Length; i++) { 
                     register[i] = nullen;
@@ -57,12 +49,15 @@ namespace PicSimulator.ViewModels {
                 register[133] = TRISA;
                 byte TRISB = Convert.ToByte(255); //1111 1111
                 register[134] = TRISB;
-            //ProgrammCounter init
-                PC = 0;
             //IO Port init
                 IoPorts = 0;
             //W Register init
                 wRegister = 0;
+            //Stack init
+                stack = new int[8];
+                for (int i = 0; i < stack.Length; i++) {
+                    register[i] = 0;
+                }
         }
         public byte getRegister(int adresse) {
             if (new BitArray(new byte[] { register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
@@ -77,11 +72,13 @@ namespace PicSimulator.ViewModels {
         }
 
         public void addToTimer(int timeAdd) {
-            if(register[1] + timeAdd > 255) { // falls es zu einem überlauf des Timers 
-                register[1] += (byte)timeAdd;
-                //Throw interrupt       // Wird ein Interrupt geworfen
-            } else {
-                register[1] += (byte)timeAdd;
+            for (int i = 0; i < timeAdd; i++) {
+                if(register[1] == 255) {
+                    register[1]++;
+                    //setzte Interrupt Flag
+                } else {
+                    register[1]++;
+                }
             }
         }
 

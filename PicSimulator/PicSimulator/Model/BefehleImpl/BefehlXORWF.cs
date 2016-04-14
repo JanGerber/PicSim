@@ -6,6 +6,7 @@ namespace PicSimulator.Model {
         private int parameter1;
         private bool parameter2;
         private bool breakpoint;
+        private int programmCounter;
 
         public BefehlXORWF(int parameter1, bool parameter2) {
             this.parameter1 = parameter1;
@@ -35,6 +36,9 @@ namespace PicSimulator.Model {
                 this.breakpoint = value;
             }
         }
+
+      
+
         public int ausfuehren(ref Speicher speicher) {
             throw new NotImplementedException();
         }

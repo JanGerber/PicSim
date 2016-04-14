@@ -18,6 +18,7 @@ namespace PicSimulator.Model {  //Namespace stellt sowas wie ein Package dar
         string Parameter2 {
             get;
         }
+       
         bool Breakpoint {
             get;
             set;

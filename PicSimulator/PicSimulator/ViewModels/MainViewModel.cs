@@ -14,6 +14,8 @@ namespace PicSimulator.ViewModels {
         private string _fileNameContent;
         private Dictionary<int, Befehl> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist ein Objekt
         private Speicher speicher;
+        private int programmCounter;
+        private bool stopProgramm;
 
 
         #endregion //fields
@@ -97,10 +99,31 @@ namespace PicSimulator.ViewModels {
 
         }
         public void StartProgramm() {
-
+            stopProgramm = false;
+            if(_opcodesObj != null) {
+                if(speicher == null) {
+                    speicher = new Speicher();
+                }
+                while (!stopProgramm && _opcodesObj.ElementAt(programmCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+                    programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);
+                }
+            } 
         }
         public void StopProgramm() {
-
+            stopProgramm = true;
+        }
+        public void ResetProgramm() {
+            stopProgramm = true;
+            programmCounter = 0;
+            speicher = new Speicher();
+        }
+        public void StepProgramm() {
+            if (_opcodesObj != null) {
+                if (speicher == null) {
+                    speicher = new Speicher();
+                }
+                    programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);  
+            }
         }
         #endregion //methods
 

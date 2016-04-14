@@ -36,6 +36,7 @@ namespace PicSimulator.Model {
                 this.breakpoint = value;
             }
         }
+
         public int ausfuehren(ref Speicher speicher) {
             throw new NotImplementedException();
         }
