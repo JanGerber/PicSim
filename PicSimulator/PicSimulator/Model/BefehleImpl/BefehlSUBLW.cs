@@ -22,7 +22,13 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
-            speicher.WRegister = (byte)((byte)parameter1 - speicher.WRegister); 
+            speicher.WRegister = (byte)((byte)parameter1 - speicher.WRegister);
+            //Status Affected: C, DC, Z
+            if (speicher.WRegister == 0) {
+                speicher.setZeroBit(true);
+            } else {
+                speicher.setZeroBit(false);
+            }
             return ++programmCounter;
         }
     }

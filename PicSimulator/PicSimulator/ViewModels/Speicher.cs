@@ -66,7 +66,7 @@ namespace PicSimulator.ViewModels {
                 return register[adresse];
             } 
         }
-        public void setRegister(int adresse) {
+        public void setRegister(int adresse, byte wert) {
 
 
         }
@@ -80,6 +80,16 @@ namespace PicSimulator.ViewModels {
                     register[1]++;
                 }
             }
+        }
+        public void setZeroBit(bool wert) {
+            if (wert) {
+                register[3] = (byte)(register[3] | 0x04); //Zero Bit null setzten
+                register[131] = (byte)(register[3] | 0x04);
+            } else {
+                register[3] = (byte)(register[3] & 0xFB);
+                register[131] = (byte)(register[3] & 0xFB);
+            }
+            
         }
 
 

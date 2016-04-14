@@ -99,18 +99,8 @@ namespace PicSimulator.ViewModels {
             
 
         }
-        public void StartProgramm() {   //Diese Funktion wird beim Button-Click ausgeführt
-            Console.WriteLine("Startbutton gedrueckt");
-            stopProgramm = false;
-            if(_opcodesObj != null) {
-                if(speicher == null) {
-                    speicher = new Speicher();
-                }
-                while (!stopProgramm && !_opcodesObj.ElementAt(programmCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
-                    System.Console.WriteLine(programmCounter + " " + _opcodesObj.ElementAt(programmCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(programmCounter).Value.Parameter1 + " | " + speicher.WRegister);
-                    programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);
-                }
-            } 
+        public void StartProgramm() {
+            System.Threading.Thread newThread = new System.Threading.Thread(StartProgrammThread);
         }
         public void StopProgramm() {
             Console.WriteLine("Stopbutton gedrueckt");
@@ -130,6 +120,19 @@ namespace PicSimulator.ViewModels {
                 }
                     programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);  
             }
+        }
+        public void StartProgrammThread() {
+            stopProgramm = false;
+            if (_opcodesObj != null) {
+                if (speicher == null) {
+                    speicher = new Speicher();
+                }
+                while (!stopProgramm && !_opcodesObj.ElementAt(programmCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+                    System.Console.WriteLine(programmCounter + " " + _opcodesObj.ElementAt(programmCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(programmCounter).Value.Parameter1 + " | " + speicher.WRegister);
+                    programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);
+                }
+            }
+            
         }
         #endregion //methods
 
