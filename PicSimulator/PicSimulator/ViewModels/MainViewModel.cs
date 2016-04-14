@@ -92,14 +92,15 @@ namespace PicSimulator.ViewModels {
                 foreach(KeyValuePair<int,Befehl> befehl in wandler.OpcodesObj) {
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
                 }
-                StartProgramm();
+                //StartProgramm(); //ist der Autostart für das Programm, wird normal über Button gestartet
             } else {
                 //TODO Fehler
             }
             
 
         }
-        public void StartProgramm() {
+        public void StartProgramm() {   //Diese Funktion wird beim Button-Click ausgeführt
+            Console.WriteLine("Startbutton gedrueckt");
             stopProgramm = false;
             if(_opcodesObj != null) {
                 if(speicher == null) {
@@ -112,14 +113,17 @@ namespace PicSimulator.ViewModels {
             } 
         }
         public void StopProgramm() {
+            Console.WriteLine("Stopbutton gedrueckt");
             stopProgramm = true;
         }
         public void ResetProgramm() {
+            Console.WriteLine("Resetbutton gedrueckt");
             stopProgramm = true;
             programmCounter = 0;
             speicher = new Speicher();
         }
         public void StepProgramm() {
+            Console.WriteLine("Schritt-V-button gedrueckt");
             if (_opcodesObj != null) {
                 if (speicher == null) {
                     speicher = new Speicher();
