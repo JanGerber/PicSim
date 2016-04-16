@@ -21,7 +21,7 @@ namespace PicSimulator.Model {
         }
         public override int ausfuehren(ref Speicher speicher) {
             speicher.WRegister = 0;
-            //Status Affected
+            //Status Affected: Z
             speicher.setZeroBit(true);
             //Cycles
             speicher.addToCycles(1);

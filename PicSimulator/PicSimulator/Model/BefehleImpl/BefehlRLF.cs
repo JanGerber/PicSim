@@ -25,7 +25,6 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            bool carry;
             int result = ((int)speicher.getRegister(parameter1)) << 1;
             if(parameter2) { // if parameter2 is true than store the result in the register
                 speicher.setRegister(parameter1, (byte)(result));
@@ -35,11 +34,10 @@ namespace PicSimulator.Model {
             //Status Affected: C
             result = 1 & (result >> 8);
             if(result == 1) {
-                carry = true;
+                speicher.setCarryBit(true);
             } else {
-                carry = false;
+                speicher.setCarryBit(false);
             }
-            speicher.setRegister(3, 0, carry); //Status Register Carry Bit
             //Cycles
             speicher.addToCycles(1);
             return programmCounter + 1;

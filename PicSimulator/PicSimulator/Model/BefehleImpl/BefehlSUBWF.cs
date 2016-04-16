@@ -25,14 +25,20 @@ namespace PicSimulator.Model {
         }
         public override int ausfuehren(ref Speicher speicher) {
             bool isStoredW;
+            int result = speicher.getRegister(parameter1) - speicher.WRegister;
             if(parameter2) { // if parameter2 is true than store the result in the register
-                speicher.setRegister(parameter1, (byte)(speicher.getRegister(parameter1)-speicher.WRegister));
+                speicher.setRegister(parameter1, (byte)(result));
                 isStoredW = false;
             } else { //otherwise in the W-Register
-                speicher.WRegister = (byte)(speicher.getRegister(parameter1) - speicher.WRegister);
+                speicher.WRegister = (byte)(result);
                 isStoredW = true;
             }
             //Status Affected: Z C DC //TODO
+            if(((result >> 8) & 1) == 1) {
+                speicher.setCarryBit(true);
+            } else {
+                speicher.setCarryBit(false);
+            }
             if(isStoredW) {
                 if(speicher.WRegister == 0) { speicher.setZeroBit(true); }
             } else {

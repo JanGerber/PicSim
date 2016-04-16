@@ -23,13 +23,20 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            speicher.WRegister += (byte)parameter1;
+            int result = speicher.WRegister + parameter1;
+            speicher.WRegister = (byte)result;
             //Status Affected C, DC, Z
-            if (speicher.WRegister == 0) {
-                speicher.setZeroBit(true);
-            } else {
-                speicher.setZeroBit(false);
-            }
+                //TODO DC
+                if(((result >> 8) & 1) == 1) {
+                    speicher.setCarryBit(true);
+                } else {
+                    speicher.setCarryBit(false);
+                }
+                if (speicher.WRegister == 0) {
+                    speicher.setZeroBit(true);
+                } else {
+                    speicher.setZeroBit(false);
+                }
             //Cycles
             speicher.addToCycles(1);
             return programmCounter + 1 ;

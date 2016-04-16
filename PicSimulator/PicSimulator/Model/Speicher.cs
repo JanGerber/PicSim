@@ -146,6 +146,9 @@ namespace PicSimulator.ViewModels {
             }
             
         }
+        public void setCarryBit(bool wert) {
+            setRegister(3, 0, wert);
+        }
         public int popStack() {
             throw new  NotImplementedException();
         }

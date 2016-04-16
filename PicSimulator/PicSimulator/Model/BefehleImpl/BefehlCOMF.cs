@@ -33,7 +33,7 @@ namespace PicSimulator.Model {
                 speicher.WRegister =(byte) ~speicher.getRegister(parameter1);
                 isStoredW = true;
             }
-            //Status Affected
+            //Status Affected: Z
                 if(isStoredW) {
                     if(speicher.WRegister == 0) {
                         speicher.setZeroBit(true);

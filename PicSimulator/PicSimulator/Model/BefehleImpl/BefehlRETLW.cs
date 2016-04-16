@@ -24,7 +24,7 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            speicher.WRegister = parameter1; //k --> (W)
+            speicher.WRegister = (byte)parameter1; //k --> (W)
             //Status Affected
                 //None
             //Cycles
