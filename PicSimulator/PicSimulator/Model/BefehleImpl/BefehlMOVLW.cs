@@ -26,6 +26,8 @@ namespace PicSimulator.Model {
 
         public override int ausfuehren(ref Speicher speicher) {
             speicher.WRegister = (byte) parameter1;
+            //Cycles
+            speicher.addToCycles(1);
             return 1 + programmCounter;
         }
     }

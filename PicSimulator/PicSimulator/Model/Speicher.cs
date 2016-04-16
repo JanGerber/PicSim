@@ -8,6 +8,7 @@ namespace PicSimulator.ViewModels {
         private byte wRegister;
         private int[] stack;
         private byte ioPorts;
+        private ulong cycles;
 
         #region properties
         public byte WRegister {
@@ -53,6 +54,8 @@ namespace PicSimulator.ViewModels {
                 IoPorts = 0;
             //W Register init
                 wRegister = 0;
+            //Cycles  auf 0
+            cycles = 0;
             //Stack init
                 stack = new int[8];
                 for (int i = 0; i < stack.Length; i++) {
@@ -80,6 +83,10 @@ namespace PicSimulator.ViewModels {
                     register[1]++;
                 }
             }
+        }   
+        public void addToCycles(int pCycles)
+        {
+            cycles += (ulong) pCycles;
         }
         public void setZeroBit(bool wert) {
             if (wert) {

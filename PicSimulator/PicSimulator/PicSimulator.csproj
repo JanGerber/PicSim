@@ -116,7 +116,7 @@
     <Compile Include="Model\BefehleImpl\BefehlXORWF.cs" />
     <Compile Include="Model\ProgrammModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\Speicher.cs" />
+    <Compile Include="Model\Speicher.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
