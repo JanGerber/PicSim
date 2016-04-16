@@ -82,30 +82,43 @@ namespace PicSimulator.ViewModels {
                 return ba.Get(bitNumber);
             }
         }
-        public void setRegister(int adresse, int bitNumber, bool wert)
+        public void setRegister(int adr, int bitNumber, bool wert)
         {
-            if (new BitArray(new byte[] { register[3] }).Get(5))
-            { //RP0 gesetzt / Welche Bank ist ausgewählt ?
-                if (wert){
-                    register[adresse + 128] = (byte)(register[adresse + 128] | (1 << bitNumber));
-                } else{
-                    register[adresse + 128] = (byte)(register[adresse + 128] & ~(1 << bitNumber));
-                }
-            }
-            else
-            {
+            if(adr == 2 | adr == 3 | adr == 4 | adr == 130 | adr == 131 | adr == 132) { //Überprüfung ob das Status | PCL | FSR Register gewählt wurde
                 if(wert) {
-                    register[adresse] = (byte)(register[adresse] | (1 << bitNumber));
+                    register[adr + 128] = (byte)(register[adr + 128] | (1 << bitNumber));
+                    register[adr] = (byte)(register[adr] | (1 << bitNumber));
                 } else {
-                    register[adresse] = (byte)(register[adresse] & ~(1 << bitNumber));
+                    register[adr + 128] = (byte)(register[adr + 128] & ~(1 << bitNumber));
+                    register[adr] = (byte)(register[adr] & ~(1 << bitNumber));
+                }
+            } else {
+                if(new BitArray(new byte[] { register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
+                    if(wert) {
+                        register[adr + 128] = (byte)(register[adr + 128] | (1 << bitNumber));
+                    } else {
+                        register[adr + 128] = (byte)(register[adr + 128] & ~(1 << bitNumber));
+                    }
+                } else {
+                    if(wert) {
+                        register[adr] = (byte)(register[adr] | (1 << bitNumber));
+                    } else {
+                        register[adr] = (byte)(register[adr] & ~(1 << bitNumber));
+                    }
                 }
             }
+           
         }
-        public void setRegister(int adresse, byte wert) {
-            if(new BitArray(new byte[] { register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
-                register[adresse + 128] = wert;
+        public void setRegister(int adr, byte wert) {
+            if(adr == 2 | adr == 3 | adr == 4 | adr == 130 | adr == 131 | adr == 132) { //Überprüfung ob das Status | PCL | FSR Register gewählt wurde
+                register[adr + 128] = wert;
+                register[adr] = wert;
             } else {
-                register[adresse] = wert;
+                if(new BitArray(new byte[] { register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
+                    register[adr + 128] = wert;
+                } else {
+                    register[adr] = wert;
+                }
             }
         }
 
