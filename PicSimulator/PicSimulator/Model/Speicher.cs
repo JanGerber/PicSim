@@ -69,9 +69,44 @@ namespace PicSimulator.ViewModels {
                 return register[adresse];
             } 
         }
+        public bool getRegister(int adresse, int bitNumber)
+        {
+            if (new BitArray(new byte[] { register[3] }).Get(5))
+            { //RP0 gesetzt / Welche Bank ist ausgewählt ?
+                System.Collections.BitArray ba = new BitArray(new byte[] { register[adresse + 128] });
+                return ba.Get(bitNumber);
+            }
+            else
+            {
+                System.Collections.BitArray ba = new BitArray(new byte[] { register[adresse] });
+                return ba.Get(bitNumber);
+            }
+        }
+        public void setRegister(int adresse, int bitNumber, bool wert)
+        {
+            if (new BitArray(new byte[] { register[3] }).Get(5))
+            { //RP0 gesetzt / Welche Bank ist ausgewählt ?
+                if (wert){
+                    register[adresse + 128] = (byte)(register[adresse + 128] | (1 << bitNumber));
+                } else{
+                    register[adresse + 128] = (byte)(register[adresse + 128] & ~(1 << bitNumber));
+                }
+            }
+            else
+            {
+                if(wert) {
+                    register[adresse] = (byte)(register[adresse] | (1 << bitNumber));
+                } else {
+                    register[adresse] = (byte)(register[adresse] & ~(1 << bitNumber));
+                }
+            }
+        }
         public void setRegister(int adresse, byte wert) {
-
-
+            if(new BitArray(new byte[] { register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
+                register[adresse + 128] = wert;
+            } else {
+                register[adresse] = wert;
+            }
         }
 
         public void addToTimer(int timeAdd) {
