@@ -146,6 +146,12 @@ namespace PicSimulator.ViewModels {
             }
             
         }
+        public int popStack() {
+            throw new  NotImplementedException();
+        }
+        public void pushStack(int addresse) {
+            throw new NotImplementedException();
+        }
 
 
     }

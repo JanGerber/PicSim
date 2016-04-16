@@ -24,10 +24,17 @@ namespace PicSimulator.Model {
                 return parameter2.ToString();
             }
         }
-        public override int ausfuehren(ref Speicher speicher) {
+        public override int ausfuehren(ref Speicher speicher) { //Add the contents of the W register with register ’f’
+            if(parameter2) { // if parameter2 is true than store the result in the register
+                speicher.setRegister(parameter1,(byte)(speicher.WRegister + speicher.getRegister(parameter1)));
+            } else { //otherwise in the W-Register
+                speicher.WRegister += speicher.getRegister(parameter1);
+            }
+            //Status affected C DC Z 
+                //TODO
             //Cycles
             speicher.addToCycles(1);
-            throw new NotImplementedException();
+            return programmCounter + 1;
         }
     }
 }

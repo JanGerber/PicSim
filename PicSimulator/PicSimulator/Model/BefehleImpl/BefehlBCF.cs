@@ -24,9 +24,12 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
+            speicher.setRegister(parameter1, parameter2, false); //Bit parameter1 in register parameter2 is cleared
+            //Status Affected
+                //none
             //Cycles
             speicher.addToCycles(1);
-            throw new NotImplementedException();
+            return programmCounter + 1;
         }
     }
 }

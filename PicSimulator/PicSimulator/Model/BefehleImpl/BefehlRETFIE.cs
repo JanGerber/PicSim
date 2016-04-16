@@ -22,9 +22,12 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
+            speicher.setRegister(11, 7, true); // 1 -> GIE
+            //Status Affected 
+                //None
             //Cycles
             speicher.addToCycles(2);
-            throw new NotImplementedException();
+            return speicher.popStack(); //TOS --> PC
         }
     }
 }

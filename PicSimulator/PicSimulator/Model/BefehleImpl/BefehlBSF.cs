@@ -24,6 +24,9 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
+            speicher.setRegister(parameter1, parameter2, true);
+            //Status Affected
+                //None
             //Cycles
             speicher.addToCycles(1);
             throw new NotImplementedException();
