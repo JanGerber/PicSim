@@ -6,7 +6,7 @@ namespace PicSimulator.ViewModels {
 
         private byte[] register;
         private byte wRegister;
-        private int[] stack;
+        private Stack stack;
         private byte ioPorts;
         private ulong cycles;
 
@@ -57,10 +57,7 @@ namespace PicSimulator.ViewModels {
             //Cycles  auf 0
             cycles = 0;
             //Stack init
-                stack = new int[8];
-                for (int i = 0; i < stack.Length; i++) {
-                    register[i] = 0;
-                }
+            stack = new Stack(8);
         }
         public byte getRegister(int adresse) {
             if (new BitArray(new byte[] { register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
@@ -84,7 +81,7 @@ namespace PicSimulator.ViewModels {
         }
         public void setRegister(int adr, int bitNumber, bool wert)
         {
-            if(adr == 2 | adr == 3 | adr == 4 | adr == 130 | adr == 131 | adr == 132) { //Überprüfung ob das Status | PCL | FSR Register gewählt wurde
+            if(adr == 2 | adr == 3 | adr == 4 | adr == 10 | adr == 11) { //Überprüfung ob das Status | PCL | FSR | PCLATH | INTCON Register gewählt wurde
                 if(wert) {
                     register[adr + 128] = (byte)(register[adr + 128] | (1 << bitNumber));
                     register[adr] = (byte)(register[adr] | (1 << bitNumber));
@@ -110,7 +107,7 @@ namespace PicSimulator.ViewModels {
            
         }
         public void setRegister(int adr, byte wert) {
-            if(adr == 2 | adr == 3 | adr == 4 | adr == 130 | adr == 131 | adr == 132) { //Überprüfung ob das Status | PCL | FSR Register gewählt wurde
+            if(adr == 2 | adr == 3 | adr == 4 | adr == 10 | adr == 11) { //Überprüfung ob das Status | PCL | FSR Register gewählt wurde
                 register[adr + 128] = wert;
                 register[adr] = wert;
             } else {
@@ -150,10 +147,10 @@ namespace PicSimulator.ViewModels {
             setRegister(3, 0, wert);
         }
         public int popStack() {
-            throw new  NotImplementedException();
+            return (int)stack.Pop();
         }
         public void pushStack(int addresse) {
-            throw new NotImplementedException();
+            stack.Push(addresse);
         }
 
 

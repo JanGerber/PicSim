@@ -24,14 +24,12 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            //TODO PC optimerung des Befhl
-                //k --> PC <10:0>
-                //PCLATH<4:3> --> PC<12:11>
+            int newProgrammCounter = (parameter1 & 0x7FF) + ((speicher.getRegister(10) & 18) >> 3); //k -> PC <10:0> ; (PCLATH <4:3>) -> PC <12:11>
             //Status Affected   
                 //None
             //Cycles
             speicher.addToCycles(2);
-            return parameter1;
+            return newProgrammCounter;
         }
     }
 }

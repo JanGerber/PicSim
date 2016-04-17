@@ -29,7 +29,7 @@ namespace PicSimulator.Model {
                 //None
             //Cycles
             speicher.addToCycles(1);
-            throw new NotImplementedException();
+            return programmCounter + 1;
         }
     }
 }

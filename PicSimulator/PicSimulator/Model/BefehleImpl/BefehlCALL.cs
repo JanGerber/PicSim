@@ -24,9 +24,13 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            //Cycles
-            speicher.addToCycles(2);
-            throw new NotImplementedException();
-        }
+            speicher.pushStack(programmCounter + 1);
+            int newProgrammCounter =  (parameter1 & 0x7FF) + ((speicher.getRegister(10) & 18) >> 3); //k -> PC < 10:0 > ; (PCLATH < 4:3 >) -> PC < 12:11 >
+              //Status Affected;
+              //None
+              //Cycles
+              speicher.addToCycles(2);
+            return newProgrammCounter; 
+                }
     }
 }
