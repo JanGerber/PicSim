@@ -30,6 +30,8 @@ namespace PicSimulator.Model {
                 //None
             //Cycles
             speicher.addToCycles(1);
+            //PCL
+            speicher.setRegister(2, (byte)(programmCounter + 1));
             return 1 + programmCounter;
         }
     }

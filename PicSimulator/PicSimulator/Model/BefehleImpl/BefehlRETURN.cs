@@ -26,7 +26,10 @@ namespace PicSimulator.Model {
                 //None
             //Cycles
             speicher.addToCycles(2);
-            return speicher.popStack(); // TOS --> PC
+            //PCL
+            int newProgrammCounter = speicher.popStack();
+            speicher.setRegister(2, (byte)(newProgrammCounter));
+            return newProgrammCounter; //TOS --> PC
         }
     }
 }
