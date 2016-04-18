@@ -17,12 +17,14 @@
             <RowDefinition Height=".6*"/>
             <RowDefinition Height=".3*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="OpenFile" Grid.Row="0" Grid.Column="0" Content="{Binding OpenFileContent}"/>
+        <Button x:Name="OpenFile" Content="Datei öffnen" Grid.Row="0" Grid.Column="0" Margin="0,0,245,0"/>
         <Label x:Name="FileName" Grid.Row="2" Grid.Column="1" Content="{Binding FileNameContent}"/>
         <Button x:Name="StartProgramm" Content="Start" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Height="55"/>
         <Button x:Name="StopProgramm" Content="Stop" Grid.Column="1" HorizontalAlignment="Left" Height="55" Margin="0,52,0,0" VerticalAlignment="Top" Width="158" Grid.RowSpan="2"/>
         <Button x:Name="ResetProgramm" Content="Zurücksetzen" HorizontalAlignment="Left" Height="55" Margin="0,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
         <Button x:Name="StepProgramm" Content="Schritt vorwärts" HorizontalAlignment="Left" Height="55" Margin="0,77,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
+        <Grid HorizontalAlignment="Left" Height="195" Grid.Row="1" VerticalAlignment="Top" Width="280" Margin="0,56,0,0"/>
+        <TextBlock x:Name="AusgabeFeld"  HorizontalAlignment="Left"  Margin="0,428,0,0" TextWrapping="Wrap" Text="{Binding Dateiname}" VerticalAlignment="Top" Height="36" Width="670" Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>
 
 </Window>
