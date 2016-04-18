@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    internal class BefehlCLRF : Befehl {
+    internal class BefehlCLRF : BefehlViewModel {
         private int parameter1;
 
         public BefehlCLRF(int programmCounter, int parameter1) {

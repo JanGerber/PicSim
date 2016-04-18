@@ -1,17 +1,19 @@
 ﻿using PicSimulator.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PicSimulator.Model {  //Namespace stellt sowas wie ein Package dar
-    class Befehl {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
+namespace PicSimulator.ViewModel {  //Namespace stellt sowas wie ein Package dar
+    class BefehlViewModel : INotifyPropertyChanged {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
         protected bool breakpoint = false;
         protected int programmCounter;
         protected string befehlsName;
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public virtual int ausfuehren(ref Speicher speicher) {
              throw new NotImplementedException(); }

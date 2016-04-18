@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    internal class BefehlRETFIE : Befehl {
+    internal class BefehlRETFIE : BefehlViewModel {
 
         public BefehlRETFIE(int programmCounter) {
             befehlsName = "RETFIE";

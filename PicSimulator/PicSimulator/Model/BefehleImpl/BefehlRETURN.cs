@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    class BefehlRETURN : Befehl {
+    class BefehlRETURN : BefehlViewModel {
 
         public BefehlRETURN(int programmCounter) {
             befehlsName = "RETURN";

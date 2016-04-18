@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using PicSimulator.Model;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using PicSimulator.ViewModel;
 
 namespace PicSimulator.ViewModels {
     class MainViewModel : Caliburn.Micro.Screen {
@@ -15,11 +16,12 @@ namespace PicSimulator.ViewModels {
         private string _openFileContent;
         private string _fileNameContent;
         private string _Dateiname;
-        private Dictionary<int, Befehl> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist ein Objekt
+        private Dictionary<int, BefehlViewModel> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist ein Objekt
         private Speicher speicher;
         private int programmCounter;
         private bool stopProgramm;
         private string filename;
+        private BindableCollection<BefehlViewModel> _operations = new BindableCollection<BefehlViewModel>();
 
 
         #endregion //fields
@@ -49,7 +51,7 @@ namespace PicSimulator.ViewModels {
             }
         }
 
-        public Dictionary<int, Befehl> OpcodesObj {
+        public Dictionary<int, BefehlViewModel> OpcodesObj {
             get {
                 return _opcodesObj;
             }
@@ -70,6 +72,19 @@ namespace PicSimulator.ViewModels {
             {
                 _Dateiname = value;
                 NotifyOfPropertyChange(() => Dateiname);
+            }
+        }
+
+        public BindableCollection<BefehlViewModel> Operations {
+            get {
+                System.Console.WriteLine("getOperations");
+                return _operations;
+            }
+
+            set {
+                System.Console.WriteLine("setOperations");
+                _operations = value;
+                NotifyOfPropertyChange(() => Operations);
             }
         }
 
@@ -99,9 +114,12 @@ namespace PicSimulator.ViewModels {
                 Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
                 OpcodesObj = wandler.OpcodesObj;
                 Ausgabe();
-                foreach (KeyValuePair<int,Befehl> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
+                BindableCollection<BefehlViewModel>  operationTest = new BindableCollection<BefehlViewModel>();
+                foreach (KeyValuePair<int,BefehlViewModel> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
+                    operationTest.Add(befehl.Value);
                 }
+                Operations = operationTest;
             } else {
                 //TODO Fehler
             }

@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    internal class BefehlRLF : Befehl {
+    internal class BefehlRLF : BefehlViewModel {
         private int parameter1;
         private bool parameter2;
 

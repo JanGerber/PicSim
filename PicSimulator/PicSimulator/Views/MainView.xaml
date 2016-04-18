@@ -4,27 +4,52 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PicSimulator.Views"
+        xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="MainView" Height="574.576" Width="673.729">
+        Title="PICSim" Height="753.6" Width="1087.2">
     <Grid RenderTransformOrigin="0.492,0.531" Margin="0,0,-346,-300">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="281*"/>
-            <ColumnDefinition Width="292*"/>
-            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="628*"/>
+            <ColumnDefinition Width="362*"/>
+            <ColumnDefinition Width="437*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height=".1*"/>
             <RowDefinition Height=".6*"/>
             <RowDefinition Height=".3*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="OpenFile" Content="Datei öffnen" Grid.Row="0" Grid.Column="0" Margin="0,0,245,0"/>
-        <Label x:Name="FileName" Grid.Row="2" Grid.Column="1" Content="{Binding FileNameContent}"/>
+        <Button x:Name="OpenFile" Content="Datei öffnen" Grid.Row="0" Grid.Column="0" Margin="0,0,245,0.4"/>
+        <Label x:Name="FileName" Grid.Row="2" Grid.Column="1" Content="{Binding FileNameContent}" Margin="0,0.2,2.4,0"/>
         <Button x:Name="StartProgramm" Content="Start" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Height="55"/>
         <Button x:Name="StopProgramm" Content="Stop" Grid.Column="1" HorizontalAlignment="Left" Height="55" Margin="0,52,0,0" VerticalAlignment="Top" Width="158" Grid.RowSpan="2"/>
-        <Button x:Name="ResetProgramm" Content="Zurücksetzen" HorizontalAlignment="Left" Height="55" Margin="0,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
-        <Button x:Name="StepProgramm" Content="Schritt vorwärts" HorizontalAlignment="Left" Height="55" Margin="0,77,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
-        <Grid HorizontalAlignment="Left" Height="195" Grid.Row="1" VerticalAlignment="Top" Width="280" Margin="0,56,0,0"/>
-        <TextBlock x:Name="AusgabeFeld"  HorizontalAlignment="Left"  Margin="0,428,0,0" TextWrapping="Wrap" Text="{Binding Dateiname}" VerticalAlignment="Top" Height="36" Width="670" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="ResetProgramm" Content="Zurücksetzen" HorizontalAlignment="Left" Height="55" Margin="0,21.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
+        <Button x:Name="StepProgramm" Content="Schritt vorwärts" HorizontalAlignment="Left" Height="55" Margin="0,76.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
+        <Grid HorizontalAlignment="Left" Height="195" Grid.Row="1" VerticalAlignment="Top" Width="280" Margin="0,55.6,0,0"/>
+        <TextBlock x:Name="AusgabeFeld"  HorizontalAlignment="Left"  Margin="0,427.6,0,0" TextWrapping="Wrap" Text="{Binding Dateiname}" VerticalAlignment="Top" Height="36" Width="670" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+        <DockPanel Grid.Column="0" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True" Margin="149.6,0.2,0.2,0" >
+            <ListView ItemsSource="{Binding Operations}">
+
+                <ListView.View>
+
+                    <GridView>
+                        <GridViewColumn Header="Break">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Tag="{Binding Breakpoint}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding ProgrammCounter}" Header="Zeile" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding BefehlsName}" Header="Befehl" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Parameter1}" Header="Parameter 1" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Parameter2}" Header="Parameter 2" Width="100"/>
+                    </GridView>
+
+                </ListView.View>
+            </ListView>
+
+        </DockPanel>
     </Grid>
 
 </Window>

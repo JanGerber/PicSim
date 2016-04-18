@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    internal class BefehlINCFSZ : Befehl {
+    internal class BefehlINCFSZ : BefehlViewModel {
         private int parameter1;
         private bool parameter2;
 
@@ -28,7 +29,7 @@ namespace PicSimulator.Model {
         public override int ausfuehren(ref Speicher speicher) {
             int addToProgrammCounter = 1;
             bool isStoredW;
-            int cycles;
+            int cycles = 0;
             if(parameter2) { // if parameter2 is true than store the result in the register
                 speicher.setRegister(parameter1, (byte)(speicher.getRegister(parameter1) + 1));
                 isStoredW = false;

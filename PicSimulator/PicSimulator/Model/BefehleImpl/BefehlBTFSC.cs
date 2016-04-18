@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    class BefehlBTFSC : Befehl {
+    class BefehlBTFSC : BefehlViewModel {
         private int parameter1;
         private int parameter2;
 

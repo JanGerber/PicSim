@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-     class BefehlCLRWDT : Befehl {
+     class BefehlCLRWDT : BefehlViewModel {
 
         public BefehlCLRWDT(int programmCounter) {
             befehlsName = "CLRWDT";

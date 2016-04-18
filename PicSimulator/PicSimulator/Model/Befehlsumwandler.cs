@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using PicSimulator.ViewModel;
 
 namespace PicSimulator.Model
 {
     class Befehlsumwandler
     {
-        Dictionary<int, Befehl> _opcodesObj;
+        Dictionary<int, BefehlViewModel> _opcodesObj;
 
         public Befehlsumwandler(Dictionary<int, int>_opcodes){
-            Dictionary<int, Befehl> opcodesObjImpl = new Dictionary<int, Befehl>();
+            Dictionary<int, BefehlViewModel> opcodesObjImpl = new Dictionary<int, BefehlViewModel>();
 
             foreach (KeyValuePair<int, int> opcode in _opcodes) {
-                Befehl befehl = wandleBefehl(opcode.Key, opcode.Value);
+                BefehlViewModel befehl = wandleBefehl(opcode.Key, opcode.Value);
                 opcodesObjImpl.Add(opcode.Key, befehl);
             }
             OpcodesObj = opcodesObjImpl;
         }
-        private Befehl wandleBefehl(int key, int befehlOpcode) {
+        private BefehlViewModel wandleBefehl(int key, int befehlOpcode) {
             //BitArray bit = new BitArray(new int[] { befehlOpcode });
 
             #region Befehlscodemaske
@@ -138,162 +139,162 @@ namespace PicSimulator.Model
             
         }
 
-        private Befehl newANDWF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newANDWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlANDWF(programmCounter,(befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newADDWF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newADDWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlADDWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newCLRF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newCLRF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlCLRF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newCLRW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newCLRW(int programmCounter, int befehlOpcode) {
             return new BefehlCLRW(programmCounter);
         }
 
-        private Befehl newCOMF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newCOMF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlCOMF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newDECF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newDECF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlDECF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newDECFSZ(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newDECFSZ(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlDECFSZ(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newINCF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newINCF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlINCF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newINCFSZ(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newINCFSZ(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlINCFSZ(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newIORWF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newIORWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlIORWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newMOVF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newMOVF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlMOVF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newMOVWF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newMOVWF(int programmCounter, int befehlOpcode) {
             return new BefehlMOVWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newNOP(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newNOP(int programmCounter, int befehlOpcode) {
             return new BefehlNOP(programmCounter);
         }
 
-        private Befehl newRLF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newRLF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlRLF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newRRF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newRRF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlRRF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newSWAPF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newSWAPF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlSWAPF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newSUBWF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newSUBWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlSUBWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newXORWF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newXORWF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlXORWF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), bitArray[7]);
         }
 
-        private Befehl newBCF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newBCF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlBCF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
-        private Befehl newBSF(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newBSF(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlBSF(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
-        private Befehl newBTFSC(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newBTFSC(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlBTFSC(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)), (int)((befehlOpcode & Convert.ToInt32("1110000000", 2)) / 128));
         }
 
-        private Befehl newBTFSS(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newBTFSS(int programmCounter, int befehlOpcode) {
             BitArray bitArray = new BitArray(new int[] { befehlOpcode });
             return new BefehlBTFSS(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)),(int)((befehlOpcode & Convert.ToInt32("1110000000", 2))/128));
         }
 
-        private Befehl newADDLW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newADDLW(int programmCounter, int befehlOpcode) {
             return new BefehlADDLW(programmCounter, (befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newANDLW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newANDLW(int programmCounter, int befehlOpcode) {
             return new BefehlANDLW(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newCALL(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newCALL(int programmCounter, int befehlOpcode) {
             return new BefehlCALL(programmCounter, (befehlOpcode & Convert.ToInt32("11111111111", 2)));
         }
 
-        private Befehl newCLRWDT(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newCLRWDT(int programmCounter, int befehlOpcode) {
             return new BefehlCLRWDT(programmCounter);
         }
 
-        private Befehl newGOTO(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newGOTO(int programmCounter, int befehlOpcode) {
             return new BefehlGOTO(programmCounter, (befehlOpcode & Convert.ToInt32("11111111111", 2)));
         }
 
-        private Befehl newIORLW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newIORLW(int programmCounter, int befehlOpcode) {
             return new BefehlIORLW(programmCounter, (befehlOpcode & Convert.ToInt32("1111111", 2)));
         }
 
-        private Befehl newMOVLW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newMOVLW(int programmCounter, int befehlOpcode) {
             return new BefehlMOVLW(programmCounter, (befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newRETFIE(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newRETFIE(int programmCounter, int befehlOpcode) {
             return new BefehlRETFIE(programmCounter);
         }
 
-        private Befehl newRETLW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newRETLW(int programmCounter, int befehlOpcode) {
             return new BefehlRETLW(programmCounter,(befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newRETURN(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newRETURN(int programmCounter, int befehlOpcode) {
             return new BefehlRETURN(programmCounter);
         }
 
-        private Befehl newSLEEP(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newSLEEP(int programmCounter, int befehlOpcode) {
             return new BefehlSLEEP(programmCounter);
         }
 
-        private Befehl newSUBLW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newSUBLW(int programmCounter, int befehlOpcode) {
             return new BefehlSUBLW(programmCounter,(befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
-        private Befehl newXORLW(int programmCounter, int befehlOpcode) {
+        private BefehlViewModel newXORLW(int programmCounter, int befehlOpcode) {
             return new BefehlXORLW(programmCounter,(befehlOpcode & Convert.ToInt32("11111111", 2)));
         }
 
@@ -334,7 +335,7 @@ namespace PicSimulator.Model
         private int SUBLW = Convert.ToInt32("11110000000000", 2);
         private int XORLW = Convert.ToInt32("11101000000000", 2);
 
-        public Dictionary<int, Befehl> OpcodesObj {
+        public Dictionary<int, BefehlViewModel> OpcodesObj {
             get {
                 return _opcodesObj;
             }

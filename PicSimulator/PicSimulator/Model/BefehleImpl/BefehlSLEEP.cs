@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    class BefehlSLEEP : Befehl {
+    class BefehlSLEEP : BefehlViewModel {
 
         public BefehlSLEEP(int programmCounter) {
             befehlsName = "SLEEP";

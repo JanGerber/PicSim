@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    internal class BefehlNOP : Befehl {
+    internal class BefehlNOP : BefehlViewModel {
 
         public BefehlNOP(int programmCounter) {
             befehlsName = "NOP";

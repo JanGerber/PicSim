@@ -1,8 +1,9 @@
-﻿using PicSimulator.ViewModels;
+﻿using PicSimulator.ViewModel;
+using PicSimulator.ViewModels;
 using System;
 
 namespace PicSimulator.Model {
-    class BefehlANDLW : Befehl {
+    class BefehlANDLW : BefehlViewModel {
         private int parameter1;
 
         public BefehlANDLW(int programmCounter, int parameter1) {
