@@ -120,12 +120,17 @@ namespace PicSimulator.ViewModels {
         }
 
         public void addToTimer(int timeAdd) {
-            for (int i = 0; i < timeAdd; i++) {
-                if(register[1] == 255) {
-                    register[1]++;
-                    //setzte Interrupt Flag
-                } else {
-                    register[1]++;
+            if (!getRegister(0x81, 5)) {        //T0CS(OPTION_REG<5>) ist leer 
+                for (int i = 0; i < timeAdd; i++) {
+                    if (register[1] == 255) {
+                        register[1]++;
+                        //setzte Interrupt Flag
+                        if(getRegister(0x0B, 5) && getRegister(0x0B, 5)) { //Ueberpruefe ob GIE AND INTCON<5>
+                            setRegister(0x0B, 2, true); //Overflow sets bit T0IF(INTCON < 2 >).
+                        }
+                    } else {
+                        register[1]++;
+                    }
                 }
             }
         }   
@@ -152,7 +157,6 @@ namespace PicSimulator.ViewModels {
         public void pushStack(int addresse) {
             stack.Push(addresse);
         }
-
 
     }
 }

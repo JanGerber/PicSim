@@ -39,8 +39,8 @@ namespace PicSimulator.Model {
                 speicher.setCarryBit(false);
             }
             //Gesamt Cycles und TMR0
-            speicher.addToCycles(1);
-            speicher.addToTimer(1);
+                speicher.addToCycles(1);
+                speicher.addToTimer(1);
             //PCL
             speicher.setRegister(2, (byte)(programmCounter + 1));
             return programmCounter + 1;
