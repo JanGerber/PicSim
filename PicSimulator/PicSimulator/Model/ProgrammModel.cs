@@ -9,7 +9,7 @@ namespace PicSimulator.Model {
 
         private Dictionary<int, int> _opcodes;
 
-        public ProgrammModel(string filePath) {
+        public ProgrammModel(string filePath) {     //Diese Funktion speichert die Befehle und Operatoren in das Dictionary
             int lineCounter = 0;
             string line;
             _opcodes = new Dictionary<int, int>();
