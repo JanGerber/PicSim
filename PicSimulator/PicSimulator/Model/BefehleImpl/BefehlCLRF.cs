@@ -26,8 +26,9 @@ namespace PicSimulator.Model {
             speicher.setRegister(parameter1, 0);
             //Status Affected Z
             speicher.setZeroBit(true);
-            //Cycles
+            //Gesamt Cycles und TMR0
             speicher.addToCycles(1);
+            speicher.addToTimer(1);
             //PCL
             speicher.setRegister(2, (byte)(programmCounter + 1));
             return programmCounter + 1;

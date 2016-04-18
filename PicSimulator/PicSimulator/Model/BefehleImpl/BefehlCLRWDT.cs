@@ -27,10 +27,11 @@ namespace PicSimulator.Model {
             //Status Affected TO PD
                 speicher.setRegister(3, 4, true);    //1 --> TO
                 speicher.setRegister(3, 3, true);    //1--> PD
-            //Cycles
+            //Gesamt Cycles und TMR0
                 speicher.addToCycles(1);
+                speicher.addToTimer(1);
             //PCL
-                speicher.setRegister(2, (byte)(programmCounter + 1));
+            speicher.setRegister(2, (byte)(programmCounter + 1));
             return programmCounter + 1;
         }
     }

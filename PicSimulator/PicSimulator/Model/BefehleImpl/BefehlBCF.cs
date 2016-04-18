@@ -27,8 +27,9 @@ namespace PicSimulator.Model {
             speicher.setRegister(parameter1, parameter2, false); //Bit parameter1 in register parameter2 is cleared
             //Status Affected
                 //none
-            //Cycles
+            //Gesamt Cycles und TMR0
             speicher.addToCycles(1);
+            speicher.addToTimer(1);
             //PCL
             speicher.setRegister(2, (byte)(programmCounter + 1));
             return programmCounter + 1;

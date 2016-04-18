@@ -24,8 +24,9 @@ namespace PicSimulator.Model {
         public override int ausfuehren(ref Speicher speicher) {
             //Status Affected
                 //None
-            //Cycles
+            //Gesamt Cycles und TMR0
             speicher.addToCycles(2);
+            speicher.addToTimer(2);
             //PCL
             int newProgrammCounter = speicher.popStack();
             speicher.setRegister(2, (byte)(newProgrammCounter));

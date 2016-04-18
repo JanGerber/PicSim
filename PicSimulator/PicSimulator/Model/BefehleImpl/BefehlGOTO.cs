@@ -27,8 +27,9 @@ namespace PicSimulator.Model {
             int newProgrammCounter = (parameter1 & 0x7FF) + ((speicher.getRegister(10) & 18) >> 3); //k -> PC <10:0> ; (PCLATH <4:3>) -> PC <12:11>
             //Status Affected   
                 //None
-            //Cycles
+            //Gesamt Cycles und TMR0
             speicher.addToCycles(2);
+            speicher.addToTimer(2);
             //PCL
             speicher.setRegister(2, (byte)(newProgrammCounter));
             return newProgrammCounter;
