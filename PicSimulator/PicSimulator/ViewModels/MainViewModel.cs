@@ -9,6 +9,7 @@ using PicSimulator.Model;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using PicSimulator.ViewModel;
+using System.Windows.Media;
 
 namespace PicSimulator.ViewModels {
     class MainViewModel : Caliburn.Micro.Screen {
@@ -21,7 +22,7 @@ namespace PicSimulator.ViewModels {
         private int programmCounter;
         private bool stopProgramm;
         private string filename;
-        private BindableCollection<BefehlViewModel> _operations = new BindableCollection<BefehlViewModel>();
+        
 
 
         #endregion //fields
@@ -58,6 +59,7 @@ namespace PicSimulator.ViewModels {
 
             set {
                 _opcodesObj = value;
+                NotifyOfPropertyChange(() => OpcodesObj);
             }
         }
 
@@ -75,16 +77,22 @@ namespace PicSimulator.ViewModels {
             }
         }
 
-        public BindableCollection<BefehlViewModel> Operations {
+        public int ProgrammCounter {
             get {
-                System.Console.WriteLine("getOperations");
-                return _operations;
+                return programmCounter;
             }
 
             set {
-                System.Console.WriteLine("setOperations");
-                _operations = value;
-                NotifyOfPropertyChange(() => Operations);
+                System.Console.WriteLine("setProgrammCounter");
+                foreach (KeyValuePair<int, BefehlViewModel> befehl in OpcodesObj) {
+                    if (befehl.Value.ProgrammCounter == ProgrammCounter) {
+                        befehl.Value.Background = Brushes.LightGray;
+                    } else {
+                        befehl.Value.Background = Brushes.White;
+                    }
+                }
+                programmCounter = value;
+                NotifyOfPropertyChange(() => ProgrammCounter);
             }
         }
 
@@ -114,12 +122,9 @@ namespace PicSimulator.ViewModels {
                 Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
                 OpcodesObj = wandler.OpcodesObj;
                 Ausgabe();
-                BindableCollection<BefehlViewModel>  operationTest = new BindableCollection<BefehlViewModel>();
                 foreach (KeyValuePair<int,BefehlViewModel> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
-                    operationTest.Add(befehl.Value);
                 }
-                Operations = operationTest;
             } else {
                 //TODO Fehler
             }
@@ -137,7 +142,7 @@ namespace PicSimulator.ViewModels {
         public void ResetProgramm() {
             Console.WriteLine("Resetbutton gedrueckt");
             stopProgramm = true;
-            programmCounter = 0;
+            ProgrammCounter = 0;
             speicher = new Speicher();
         }
         public void StepProgramm() {
@@ -146,8 +151,8 @@ namespace PicSimulator.ViewModels {
                 if (speicher == null) {
                     speicher = new Speicher();
                 }
-                System.Console.WriteLine(programmCounter + " " + _opcodesObj.ElementAt(programmCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(programmCounter).Value.Parameter1 + " | " + speicher.WRegister);
-                programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);  
+                System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
+                ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);  
             }
         }
         public void StartProgrammThread() {
@@ -156,9 +161,9 @@ namespace PicSimulator.ViewModels {
                 if (speicher == null) {
                     speicher = new Speicher();
                 }
-                while (!stopProgramm && !_opcodesObj.ElementAt(programmCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
-                    System.Console.WriteLine(programmCounter + " " + _opcodesObj.ElementAt(programmCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(programmCounter).Value.Parameter1 + " | " + speicher.WRegister);
-                    programmCounter = _opcodesObj.ElementAt(programmCounter).Value.ausfuehren(ref speicher);
+                while (!stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+                    System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
+                    ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
                 }
             }
             

@@ -28,27 +28,29 @@
         <TextBlock x:Name="AusgabeFeld"  HorizontalAlignment="Left"  Margin="0,427.6,0,0" TextWrapping="Wrap" Text="{Binding Dateiname}" VerticalAlignment="Top" Height="36" Width="670" Grid.Row="1" Grid.ColumnSpan="2"/>
 
         <DockPanel Grid.Column="0" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True" Margin="149.6,0.2,0.2,0" >
-            <ListView ItemsSource="{Binding Operations}">
-
+            <ListView ItemsSource="{Binding OpcodesObj}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="{Binding Value.Background}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
-
-                    <GridView>
-                        <GridViewColumn Header="Break">
+                    <GridView >
+                        <GridViewColumn Header="Break" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox Tag="{Binding Breakpoint}"/>
+                                    <CheckBox IsChecked="{Binding Value.Breakpoint}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding ProgrammCounter}" Header="Zeile" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding BefehlsName}" Header="Befehl" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Parameter1}" Header="Parameter 1" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Parameter2}" Header="Parameter 2" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Value.ProgrammCounter}" Header="Zeile" Width="100" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Value.BefehlsName}" Header="Befehl" Width="100" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Value.Parameter1}" Header="Parameter 1" Width="100" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Value.Parameter2}" Header="Parameter 2" Width="100" />
                     </GridView>
-
                 </ListView.View>
+              
             </ListView>
-
         </DockPanel>
     </Grid>
 

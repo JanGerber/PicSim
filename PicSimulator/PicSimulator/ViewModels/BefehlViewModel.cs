@@ -5,15 +5,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Media;
 
 namespace PicSimulator.ViewModel {  //Namespace stellt sowas wie ein Package dar
-    class BefehlViewModel : INotifyPropertyChanged {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
+    class BefehlViewModel  : Caliburn.Micro.Screen {  //Befehl ist ein Interface, das bedeutet es stellt die Form für weitere Objekte dar
         protected bool breakpoint = false;
         protected int programmCounter;
         protected string befehlsName;
+        protected Brush background;
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public virtual int ausfuehren(ref Speicher speicher) {
              throw new NotImplementedException(); }
@@ -23,6 +23,7 @@ namespace PicSimulator.ViewModel {  //Namespace stellt sowas wie ein Package dar
             }
             set {
                 this.befehlsName = value;
+                NotifyOfPropertyChange(() => BefehlsName);
             }
         }
         public virtual string Parameter1 {
@@ -39,6 +40,7 @@ namespace PicSimulator.ViewModel {  //Namespace stellt sowas wie ein Package dar
 
             set {
                 this.breakpoint = value;
+                NotifyOfPropertyChange(() => Breakpoint);
             }
         }
         public int ProgrammCounter {
@@ -47,6 +49,18 @@ namespace PicSimulator.ViewModel {  //Namespace stellt sowas wie ein Package dar
             }
             set {
                 this.programmCounter = value;
+                NotifyOfPropertyChange(() => ProgrammCounter);
+            }
+        }
+
+        public Brush Background {
+            get {
+                System.Console.WriteLine("GetBackground: " + BefehlsName);
+                return background;
+            }
+            set {
+                background = value;
+                NotifyOfPropertyChange(() => Background);
             }
         }
     }
