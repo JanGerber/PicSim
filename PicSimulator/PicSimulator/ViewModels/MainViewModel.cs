@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using PicSimulator.ViewModel;
 using System.Windows.Media;
+using System.ComponentModel;
 
 namespace PicSimulator.ViewModels {
     class MainViewModel : Caliburn.Micro.Screen {
@@ -22,7 +23,9 @@ namespace PicSimulator.ViewModels {
         private int programmCounter;
         private bool stopProgramm;
         private string filename;
-        
+        BackgroundWorker prgWorker = new BackgroundWorker();
+        bool resetProgramm;
+
 
 
         #endregion //fields
@@ -82,8 +85,7 @@ namespace PicSimulator.ViewModels {
                 return programmCounter;
             }
 
-            set {
-                System.Console.WriteLine("setProgrammCounter");
+            set { 
                 foreach (KeyValuePair<int, BefehlViewModel> befehl in OpcodesObj) {
                     if (befehl.Value.ProgrammCounter == ProgrammCounter) {
                         befehl.Value.Background = Brushes.LightGray;
@@ -101,7 +103,14 @@ namespace PicSimulator.ViewModels {
         #region constructor
         public MainViewModel() {
             OpenFileContent = "Datei öffnen";
+            prgWorker.DoWork += worker_StartProgrammThread;
+            prgWorker.RunWorkerCompleted += worker_StartProgrammrCompleted;
+            prgWorker.WorkerReportsProgress = true;
+            prgWorker.WorkerSupportsCancellation = true;
+            
+            resetProgramm = false;
         }
+
         #endregion //constructur
 
         #region methods
@@ -131,19 +140,24 @@ namespace PicSimulator.ViewModels {
             
         }
         public void StartProgramm() {
-            Console.WriteLine("Startbutton gedrueckt");
-            System.Threading.Thread newThread = new System.Threading.Thread(StartProgrammThread);
-            newThread.Start();
+           
+
+            stopProgramm = false;
+            if (_opcodesObj != null) {
+                if (speicher == null) {
+                    speicher = new Speicher();
+                }
+                if (!prgWorker.IsBusy) { 
+                prgWorker.RunWorkerAsync();
+                }
+            }
         }
         public void StopProgramm() {
             Console.WriteLine("Stopbutton gedrueckt");
             stopProgramm = true;
         }
         public void ResetProgramm() {
-            Console.WriteLine("Resetbutton gedrueckt");
-            stopProgramm = true;
-            ProgrammCounter = 0;
-            speicher = new Speicher();
+            resetProgramm = true;
         }
         public void StepProgramm() {
             Console.WriteLine("Schritt-V-button gedrueckt");
@@ -155,16 +169,27 @@ namespace PicSimulator.ViewModels {
                 ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);  
             }
         }
-        public void StartProgrammThread() {
-            stopProgramm = false;
-            if (_opcodesObj != null) {
-                if (speicher == null) {
-                    speicher = new Speicher();
+        private void worker_StartProgrammThread(object sender, DoWorkEventArgs e) {
+            System.Console.WriteLine("StartProgrammThread");
+            while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+                //System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
+                ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
+            }
+        }
+        private void worker_StartProgrammrCompleted(object sender, RunWorkerCompletedEventArgs e) {
+            if (resetProgramm) {
+                System.Console.WriteLine("worker_StartProgrammrCompleted -- RESET");
+                speicher = new Speicher();
+                resetProgramm = false;
+                ProgrammCounter = 0;
+                foreach (KeyValuePair<int, BefehlViewModel> befehl in OpcodesObj) { //Workaround aktueller ProgrammCounter anpassung der Hintergrundfarbe
+                    if (befehl.Value.ProgrammCounter == ProgrammCounter) {
+                        befehl.Value.Background = Brushes.LightGray;
+                    } else {
+                        befehl.Value.Background = Brushes.White;
+                    }
                 }
-                while (!stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
-                    System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
-                    ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
-                }
+                NotifyOfPropertyChange(() => ProgrammCounter);
             }
             
         }

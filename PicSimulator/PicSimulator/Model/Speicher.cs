@@ -120,7 +120,7 @@ namespace PicSimulator.ViewModels {
         }
 
         public void addToTimer(int timeAdd) {
-            if (!getRegister(0x81, 5)) {        //T0CS(OPTION_REG<5>) ist leer 
+            if (!((register[0x81] &  0x20)==32) ) {        //T0CS(OPTION_REG<5>) ist leer 
                 for (int i = 0; i < timeAdd; i++) {
                     if (register[1] == 255) {
                         register[1]++;

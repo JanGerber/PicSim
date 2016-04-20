@@ -55,7 +55,6 @@ namespace PicSimulator.ViewModel {  //Namespace stellt sowas wie ein Package dar
 
         public Brush Background {
             get {
-                System.Console.WriteLine("GetBackground: " + BefehlsName);
                 return background;
             }
             set {

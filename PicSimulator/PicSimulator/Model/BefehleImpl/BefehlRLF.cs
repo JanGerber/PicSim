@@ -27,6 +27,9 @@ namespace PicSimulator.Model {
 
         public override int ausfuehren(ref Speicher speicher) {
             int result = ((int)speicher.getRegister(parameter1)) << 1;
+            if (speicher.getRegister(3, 0)) {
+                result++;
+            }
             if(parameter2) { // if parameter2 is true than store the result in the register
                 speicher.setRegister(parameter1, (byte)(result));
             } else { //otherwise in the W-Register
