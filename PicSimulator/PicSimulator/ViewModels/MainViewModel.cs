@@ -18,7 +18,7 @@ namespace PicSimulator.ViewModels {
         private string _openFileContent;
         private string _fileNameContent;
         private string _Dateiname;
-        private Dictionary<int, BefehlViewModel> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist ein Objekt
+        private Dictionary<int, BefehlViewModel> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist  ein Objekt
         private Speicher speicher;
         private int programmCounter;
         private bool stopProgramm;
