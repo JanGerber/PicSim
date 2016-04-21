@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace PicSimulator.ViewModels {
-    class Speicher {
+    class Speicher : Caliburn.Micro.Screen {
 
         private byte[] register;
         private byte wRegister;
@@ -30,6 +30,16 @@ namespace PicSimulator.ViewModels {
 
             set {
                 ioPorts = value;
+            }
+        }
+        public byte[] Register {
+            get {
+                return register;
+            }
+
+            set {
+                register = value;
+                NotifyOfPropertyChange(() => Register);
             }
         }
         #endregion
