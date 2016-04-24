@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using System.Windows.Forms;
+using System.Windows.Forms; //TEST
 using PicSimulator.Model;
 using System.Windows.Controls;
 using System.Windows.Documents;

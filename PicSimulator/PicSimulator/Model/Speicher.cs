@@ -69,6 +69,12 @@ namespace PicSimulator.ViewModels {
             //Stack init
             stack = new Stack(8);
         }
+    
+        public byte getwRegister()  //get Funktion w-Register Test-Lukas
+        {
+            return wRegister;
+        }
+
         public byte getRegister(int adresse) {
             if (new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
                 return Register[adresse + 128];
