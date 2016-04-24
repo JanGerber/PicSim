@@ -6,28 +6,27 @@
         xmlns:local="clr-namespace:PicSimulator.Views"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="PICSim" Height="753.6" Width="1087.2">
-    <Grid RenderTransformOrigin="0.492,0.531" Margin="0,0,2,-2" Height="725" VerticalAlignment="Top">
+        Title="PICSim" Height="800" Width="1200">
+    <Grid RenderTransformOrigin="0.492,0.531" Margin="0,10,2,-300">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="580*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="270*"/>
-            <ColumnDefinition Width="227*"/>
+            <ColumnDefinition Width="272*"/>
+            <ColumnDefinition Width="113*"/>
+            <ColumnDefinition Width="384*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="108*"/>
-            <RowDefinition Height="400*"/>
-            <RowDefinition Height="217*"/>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition Height=".6*"/>
+            <RowDefinition Height=".3*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="OpenFile" Content="Datei öffnen" Grid.Row="0" Grid.Column="0" Margin="0,0,354,0"/>
-        <Label x:Name="FileName" Grid.Row="2" Grid.Column="1" Content="{Binding FileNameContent}" Margin="0,0,2,143" Grid.ColumnSpan="2"/>
-        <Button x:Name="StartProgramm" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Height="55" Margin="226,0,0,0"/>
-        <Button x:Name="StopProgramm" Content="Stop" HorizontalAlignment="Left" Height="55" Margin="226,55,0,0" VerticalAlignment="Top" Width="158" Grid.RowSpan="2"/>
-        <Button x:Name="ResetProgramm" Content="Zurücksetzen" HorizontalAlignment="Left" Height="55" Margin="384,0,0,0" VerticalAlignment="Top" Width="158"/>
-        <Button x:Name="StepProgramm" Content="Schritt vorwärts" HorizontalAlignment="Left" Height="55" Margin="384,55,0,0" VerticalAlignment="Top" Width="158" Grid.RowSpan="2"/>
-        <TextBlock x:Name="AusgabeFeld"  HorizontalAlignment="Left"  Margin="0,181,0,0" TextWrapping="Wrap" Text="{Binding Dateiname}" VerticalAlignment="Top" Height="36" Width="497" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Button x:Name="OpenFile" Content="Datei öffnen" Grid.Row="0" Grid.Column="0" Margin="0,0,245,0"/>
+        <Label x:Name="FileName" Grid.Row="2" Grid.Column="1" Content="{Binding FileNameContent}" Margin="0,0,2,0"/>
+        <Button x:Name="StartProgramm" Content="Start" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Height="55"/>
+        <Button x:Name="StopProgramm" Content="Stop" Grid.Column="1" HorizontalAlignment="Left" Height="55" Margin="0,52,0,0" VerticalAlignment="Top" Width="158"/>
+        <Button x:Name="ResetProgramm" Content="Zurücksetzen" HorizontalAlignment="Left" Height="55" Margin="0,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
+        <Button x:Name="StepProgramm" Content="Schritt vorwärts" HorizontalAlignment="Left" Height="55" Margin="0,77,0,0" Grid.Row="1" VerticalAlignment="Top" Width="158" Grid.Column="1"/>
+        <TextBlock x:Name="AusgabeFeld"  HorizontalAlignment="Left"  Margin="0,428,0,0" TextWrapping="Wrap" Text="{Binding Dateiname}" VerticalAlignment="Top" Height="36" Width="670" Grid.Row="1" Grid.ColumnSpan="2"/>
 
-        <DockPanel Grid.Column="0" Height="auto" Width="auto" LastChildFill="True" Grid.RowSpan="2" Grid.Row="1" >
+        <DockPanel Grid.Column="0" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True">
             <ListView ItemsSource="{Binding OpcodesObj}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -49,17 +48,27 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Value.Parameter2}" Header="Parameter 2" Width="100" />
                     </GridView>
                 </ListView.View>
+
             </ListView>
         </DockPanel>
-        <ListView x:Name="listView" ItemsSource="{Binding Speicher}" Grid.Column="2" HorizontalAlignment="Left" Height="225" Grid.Row="1" VerticalAlignment="Top" Width="270">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Register[131]}" Header="Reg" Width="100" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DockPanel  Grid.Column="2" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Column="0" Grid.Row="0"   Text="Register 1:" Grid.ColumnSpan="2" />
+                <TextBox Grid.Column="1" Grid.Row="0"   Text="{Binding Speicher.Register[1]}" />
+                <TextBox Grid.Column="0" Grid.Row="1"   Text="Register 129:" Grid.ColumnSpan="2" />
+                <TextBox Grid.Column="1" Grid.Row="1"   Text="{Binding Speicher.Register[129]}" />
+            </Grid>
 
+        </DockPanel>
     </Grid>
 
 </Window>

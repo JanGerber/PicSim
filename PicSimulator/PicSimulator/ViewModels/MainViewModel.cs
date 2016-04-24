@@ -18,7 +18,7 @@ namespace PicSimulator.ViewModels {
         private string _openFileContent;
         private string _fileNameContent;
         private string _Dateiname;
-        private Dictionary<int, BefehlViewModel> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist ein Objekt
+        private Dictionary<int, BefehlViewModel> _opcodesObj; //in int wird die Zeilennummer gespeichert, Befehl ist  ein Objekt
         private Speicher speicher;
         private int programmCounter;
         private bool stopProgramm;
@@ -98,6 +98,17 @@ namespace PicSimulator.ViewModels {
             }
         }
 
+        public Speicher Speicher {
+            get {
+                return speicher;
+            }
+
+            set {
+                speicher = value;
+                NotifyOfPropertyChange(() => Speicher);
+            }
+        }
+
         #endregion //properties
 
         #region constructor
@@ -144,8 +155,8 @@ namespace PicSimulator.ViewModels {
 
             stopProgramm = false;
             if (_opcodesObj != null) {
-                if (speicher == null) {
-                    speicher = new Speicher();
+                if (Speicher == null) {
+                    Speicher = new Speicher();
                 }
                 if (!prgWorker.IsBusy) { 
                 prgWorker.RunWorkerAsync();
@@ -162,8 +173,8 @@ namespace PicSimulator.ViewModels {
         public void StepProgramm() {
             Console.WriteLine("Schritt-V-button gedrueckt");
             if (_opcodesObj != null) {
-                if (speicher == null) {
-                    speicher = new Speicher();
+                if (Speicher == null) {
+                    Speicher = new Speicher();
                 }
                 System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
                 ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);  
@@ -179,7 +190,7 @@ namespace PicSimulator.ViewModels {
         private void worker_StartProgrammrCompleted(object sender, RunWorkerCompletedEventArgs e) {
             if (resetProgramm) {
                 System.Console.WriteLine("worker_StartProgrammrCompleted -- RESET");
-                speicher = new Speicher();
+                Speicher = new Speicher();
                 resetProgramm = false;
                 ProgrammCounter = 0;
                 foreach (KeyValuePair<int, BefehlViewModel> befehl in OpcodesObj) { //Workaround aktueller ProgrammCounter anpassung der Hintergrundfarbe
