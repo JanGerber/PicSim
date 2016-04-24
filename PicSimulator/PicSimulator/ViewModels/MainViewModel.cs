@@ -130,7 +130,7 @@ namespace PicSimulator.ViewModels {
                 ProgrammModel programModel = new ProgrammModel(filename);
                 Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
                 OpcodesObj = wandler.OpcodesObj;
-                Ausgabe();
+                Dateiname = filename;
                 foreach (KeyValuePair<int,BefehlViewModel> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
                 }
@@ -192,10 +192,6 @@ namespace PicSimulator.ViewModels {
                 NotifyOfPropertyChange(() => ProgrammCounter);
             }
             
-        }
-
-        public void Ausgabe() {
-            Dateiname = filename; 
         }
         #endregion //methods
     }

@@ -64,6 +64,7 @@ namespace PicSimulator.ViewModels {
                 return register[adresse + 128];
             } else {
                 return register[adresse];
+
             } 
         }
         public bool getRegister(int adresse, int bitNumber)
