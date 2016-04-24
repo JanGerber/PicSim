@@ -73,7 +73,8 @@ namespace PicSimulator.ViewModels {
             if (new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
                 return Register[adresse + 128];
             } else {
-                return Register[adresse];
+                return register[adresse];
+
             } 
         }
         public bool getRegister(int adresse, int bitNumber)
