@@ -192,10 +192,19 @@
                 <TextBox Grid.Column="6" Grid.Row="10"   Text="{Binding Speicher.Register[77],StringFormat=0x{0:X2}}" />
                 <TextBox Grid.Column="7" Grid.Row="10"   Text="{Binding Speicher.Register[78],StringFormat=0x{0:X2}}" />
                 <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.Register[79],StringFormat=0x{0:X2}}" />
-
             </Grid>
-
         </DockPanel>
+        <DockPanel  Grid.Column="2" Grid.Row="1">
+            <Grid Name="InputOutput" Margin="0,220,0,0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Column="0" Grid.Row="1"   Text="IOPorts " Grid.ColumnSpan="2"/>
+            </Grid>
+        </DockPanel>    
     </Grid>
 
 </Window>

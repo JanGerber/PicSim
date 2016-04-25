@@ -22,6 +22,8 @@ namespace PicSimulator.ViewModels {
             }
         }
 
+
+
         
 
         public byte IoPorts {
