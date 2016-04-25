@@ -83,6 +83,8 @@ namespace PicSimulator.ViewModels {
             cycles = 0;
             //Stack init
             stack = new Stack(8);
+            //AusgabeSpeicher Testen
+            Register[5] = 255;
         }
 
         public byte getRegister(int adresse) {
