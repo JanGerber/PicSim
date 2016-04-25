@@ -21,21 +21,21 @@ namespace PicSimulator.ViewModels {
                 NotifyOfPropertyChange(() => WRegister);
             }
         }
-        public bool[][] RegisterBit {
+        public bool[,] RegisterBit {
             get {
-                bool[][] bitArray = new bool[register.Length][8];
+                bool[,] bitArray = new bool[register.Length,8];
                 for(int i = 0; i < Register.Length; i++) {
                     for (int j = 0; j < 8; i++) {
                         System.Collections.BitArray ba = new BitArray(new byte[] { Register[i] });
-                        bitArray[i][j] = ba.Get(j);
+                        bitArray[i ,j] = ba.Get(j);
                     } 
                 }
                 return bitArray;
             }
             set {
                 for (int i = 0; i < value.Length; i++) {
-                    for (int j = 0; j < value[i].Length; i++) {
-                        if (value[i][j]) {
+                    for (int j = 0; j < 255; i++) {
+                        if (value[i,j]) {
                             Register[i] = (byte)(Register[i] | (1 << j));
                         } else {
                             Register[i] = (byte)(Register[i] & ~(1 << j));
