@@ -26,8 +26,12 @@ namespace PicSimulator.Model {
             int result = parameter1 - speicher.WRegister;
             speicher.WRegister = (byte)result;
             //Status Affected: C, DC, Z
-                //TODO DC
-                if(((result >> 8) & 1) == 1) {
+            if ((byte)((parameter1 & 0x0F)-(speicher.WRegister & 0x0F))  > 15) {
+                speicher.setDigitCarryBit(true);
+            } else {
+                speicher.setDigitCarryBit(false);
+            }
+            if (((result >> 8) & 1) == 1) {
                     speicher.setCarryBit(true);
                 } else {
                     speicher.setCarryBit(false);

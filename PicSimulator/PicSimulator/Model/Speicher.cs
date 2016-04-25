@@ -7,7 +7,6 @@ namespace PicSimulator.ViewModels {
         private byte[] register;
         private byte wRegister;
         private Stack stack;
-        private byte ioPorts;
         private ulong cycles;
 
         #region properties
@@ -21,7 +20,67 @@ namespace PicSimulator.ViewModels {
                 NotifyOfPropertyChange(() => WRegister);
             }
         }
-        public bool[,] RegisterBit {
+
+        public bool[] PortA {
+            get
+            {
+                bool[] bitArray = new bool[8];
+                System.Collections.BitArray ba = new BitArray(new byte[] { Register[5] });
+                for (int j = 0; j < 8; j++)
+                    {
+                        bitArray[j] = ba.Get(j);
+                    }
+                return bitArray;
+            }
+            set
+            {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if (value[j])
+                        {
+                            Register[5] = (byte)(Register[5] | (1 << j));
+                        }
+                        else
+                        {
+                            Register[5] = (byte)(Register[5] & ~(1 << j));
+                        }
+                    }
+                NotifyOfPropertyChange(() => PortA);
+                NotifyOfPropertyChange(() => Register);
+            }
+
+        }
+        public bool[] PortB
+        {
+            get
+            {
+                bool[] bitArray = new bool[8];
+                System.Collections.BitArray ba = new BitArray(new byte[] { Register[6] });
+                for (int j = 0; j < 8; j++)
+                {
+                    bitArray[j] = ba.Get(j);
+                }
+                return bitArray;
+            }
+            set
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (value[j])
+                    {
+                        Register[5] = (byte)(Register[6] | (1 << j));
+                    }
+                    else
+                    {
+                        Register[5] = (byte)(Register[6] & ~(1 << j));
+                    }
+                }
+                NotifyOfPropertyChange(() => PortB);
+                NotifyOfPropertyChange(() => Register);
+            }
+
+        }
+        public bool[,] RegisterBit { //Funktioniert nicht, Fehler unbekannt
             get {
                 bool[,] bitArray = new bool[register.Length,8];
                 for(int i = 0; i < Register.Length; i++) {
@@ -34,7 +93,7 @@ namespace PicSimulator.ViewModels {
             }
             set {
                 for (int i = 0; i < value.Length; i++) {
-                    for (int j = 0; j < 255; i++) {
+                    for (int j = 0; j < 8; j++) {
                         if (value[i,j]) {
                             Register[i] = (byte)(Register[i] | (1 << j));
                         } else {
@@ -187,6 +246,9 @@ namespace PicSimulator.ViewModels {
         }
         public void pushStack(int addresse) {
             stack.Push(addresse);
+        }
+        public void setDigitCarryBit(bool wert) {
+            setRegister(3, 1, wert);
         }
 
     }

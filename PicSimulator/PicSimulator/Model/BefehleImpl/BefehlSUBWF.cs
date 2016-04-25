@@ -35,7 +35,12 @@ namespace PicSimulator.Model {
                 isStoredW = true;
             }
             //Status Affected: Z C DC //TODO
-            if(((result >> 8) & 1) == 1) {
+            if ((byte)((speicher.getRegister(parameter1)) - (speicher.WRegister & 0x0F)) > 15) {
+                speicher.setDigitCarryBit(true);
+            } else {
+                speicher.setDigitCarryBit(false);
+            }
+            if (((result >> 8) & 1) == 1) {
                 speicher.setCarryBit(true);
             } else {
                 speicher.setCarryBit(false);

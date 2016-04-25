@@ -23,9 +23,15 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
+
+            //Status effekted
+            speicher.setRegister(3,4,true);//TO (Time-Out Bit)setzen
+            speicher.setRegister(3, 3, false); //Power down bit clearen
+            //Timer
+            speicher.addToTimer(1);
             //Cycles
             speicher.addToCycles(1);
-            throw new NotImplementedException();
+            return ProgrammCounter + 1;
         }
     }
 }
