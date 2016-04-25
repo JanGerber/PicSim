@@ -21,18 +21,33 @@ namespace PicSimulator.ViewModels {
                 NotifyOfPropertyChange(() => WRegister);
             }
         }
-
-        
-
-        public byte IoPorts {
+        public bool[][] RegisterBit {
             get {
-                return ioPorts;
+                bool[][] bitArray = new bool[register.Length][8];
+                for(int i = 0; i < Register.Length; i++) {
+                    for (int j = 0; j < 8; i++) {
+                        System.Collections.BitArray ba = new BitArray(new byte[] { Register[i] });
+                        bitArray[i][j] = ba.Get(j);
+                    } 
+                }
+                return bitArray;
             }
-
             set {
-                ioPorts = value;
+                for (int i = 0; i < value.Length; i++) {
+                    for (int j = 0; j < value[i].Length; i++) {
+                        if (value[i][j]) {
+                            Register[i] = (byte)(Register[i] | (1 << j));
+                        } else {
+                            Register[i] = (byte)(Register[i] & ~(1 << j));
+                        }
+                    }
+                }
+                NotifyOfPropertyChange(() => RegisterBit);
+                NotifyOfPropertyChange(() => Register);
             }
-        }
+        }  
+
+
         public byte[] Register {
             get {
                 return register;
@@ -41,6 +56,7 @@ namespace PicSimulator.ViewModels {
             set {
                 register = value;
                 NotifyOfPropertyChange(() => Register);
+                NotifyOfPropertyChange(() => RegisterBit);
             }
         }
         #endregion
@@ -61,8 +77,6 @@ namespace PicSimulator.ViewModels {
                 Register[133] = TRISA;
                 byte TRISB = Convert.ToByte(255); //1111 1111
                 Register[134] = TRISB;
-            //IO Port init
-                IoPorts = 0;
             //W Register init
                 WRegister = 0;
             //Cycles  auf 0
