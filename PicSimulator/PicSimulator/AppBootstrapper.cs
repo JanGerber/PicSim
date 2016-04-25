@@ -19,5 +19,8 @@ namespace PicSimulator
         {
             DisplayRootViewFor<MainViewModel>();
         }
+        protected override void OnExit(object sender, EventArgs e) {
+            Environment.Exit(0);
+        }
     }
 }

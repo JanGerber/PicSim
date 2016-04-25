@@ -145,6 +145,7 @@ namespace PicSimulator.ViewModels {
                 foreach (KeyValuePair<int,BefehlViewModel> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
                 }
+                Speicher = new Speicher();
             } else {
                 //TODO Fehler
             }

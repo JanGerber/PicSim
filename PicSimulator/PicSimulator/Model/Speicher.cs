@@ -18,6 +18,7 @@ namespace PicSimulator.ViewModels {
 
             set {
                 wRegister = value;
+                NotifyOfPropertyChange(() => WRegister);
             }
         }
 
@@ -47,7 +48,7 @@ namespace PicSimulator.ViewModels {
             //gesamtes Register mit 0 initialisieren
                 Register = new byte[256];
                 byte nullen = Convert.ToByte(0); //0000 0000
-                for (int i = 0; i < register.Length; i++) {
+                for (int i = 0; i < Register.Length; i++) {
                 Register[i] = nullen;
                 }
             //Special Function Register initialisieren
@@ -63,29 +64,24 @@ namespace PicSimulator.ViewModels {
             //IO Port init
                 IoPorts = 0;
             //W Register init
-                wRegister = 0;
+                WRegister = 0;
             //Cycles  auf 0
             cycles = 0;
             //Stack init
             stack = new Stack(8);
-        }
-    
-        public byte getwRegister()  //get Funktion w-Register Test-Lukas
-        {
-            return wRegister;
         }
 
         public byte getRegister(int adresse) {
             if (new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
                 return Register[adresse + 128];
             } else {
-                return register[adresse];
+                return Register[adresse];
 
             } 
         }
         public bool getRegister(int adresse, int bitNumber)
         {
-            if (new BitArray(new byte[] { register[3] }).Get(5))
+            if (new BitArray(new byte[] { Register[3] }).Get(5))
             { //RP0 gesetzt / Welche Bank ist ausgewählt ?
                 System.Collections.BitArray ba = new BitArray(new byte[] { Register[adresse + 128] });
                 return ba.Get(bitNumber);
@@ -121,19 +117,21 @@ namespace PicSimulator.ViewModels {
                     }
                 }
             }
-           
+            NotifyOfPropertyChange(() => Register);
+
         }
         public void setRegister(int adr, byte wert) {
             if(adr == 2 | adr == 3 | adr == 4 | adr == 10 | adr == 11) { //Überprüfung ob das Status | PCL | FSR Register gewählt wurde
                 Register[adr + 128] = wert;
                 Register[adr] = wert;
             } else {
-                if(new BitArray(new byte[] { register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
+                if(new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
                     Register[adr + 128] = wert;
                 } else {
                     Register[adr] = wert;
                 }
             }
+            NotifyOfPropertyChange(() => Register);
         }
 
         public void addToTimer(int timeAdd) {
