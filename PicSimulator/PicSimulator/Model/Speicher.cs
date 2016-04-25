@@ -25,7 +25,7 @@ namespace PicSimulator.ViewModels {
             get {
                 bool[,] bitArray = new bool[register.Length,8];
                 for(int i = 0; i < Register.Length; i++) {
-                    for (int j = 0; j < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
                         System.Collections.BitArray ba = new BitArray(new byte[] { Register[i] });
                         bitArray[i ,j] = ba.Get(j);
                     } 
