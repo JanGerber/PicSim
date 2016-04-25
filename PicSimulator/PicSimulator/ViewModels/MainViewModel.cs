@@ -118,7 +118,7 @@ namespace PicSimulator.ViewModels {
             prgWorker.RunWorkerCompleted += worker_StartProgrammrCompleted;
             prgWorker.WorkerReportsProgress = true;
             prgWorker.WorkerSupportsCancellation = true;
-            
+            Speicher = new Speicher();
             resetProgramm = false;
         }
 
