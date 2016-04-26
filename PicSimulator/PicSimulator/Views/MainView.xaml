@@ -194,6 +194,7 @@
                 <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.Register[79],StringFormat=0x{0:X2}}" />
             </Grid>
         </DockPanel>
+        <!--
         <DockPanel  Grid.Column="2" Grid.Row="1">
             <Grid Name="InputOutput" Margin="0,220,0,0" >
                 <Grid.ColumnDefinitions>
@@ -241,7 +242,74 @@
                 <CheckBox Grid.Column="7" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[1]}"/>
                 <CheckBox Grid.Column="8" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[0]}"/>
             </Grid>
-        </DockPanel>    
+        </DockPanel>
+        -->
+        <DockPanel Grid.Column="2" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True">
+            <ListView ItemsSource="{Binding Speicher.PortB}">
+                <ListView.View>
+                    <GridView >
+                        <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="Register" Width="100" />
+                        <GridViewColumn Header="7" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit7}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="6" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit6}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="5" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit5}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="4" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit4}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="3" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit3}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="2" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit2}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="1" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit1}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="0" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Value.Bit0}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+        </DockPanel>
     </Grid>
 
 </Window>

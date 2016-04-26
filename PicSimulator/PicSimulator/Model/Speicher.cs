@@ -1,5 +1,8 @@
-﻿using System;
+﻿using PicSimulator.Model;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace PicSimulator.ViewModels {
     class Speicher : Caliburn.Micro.Screen {
@@ -8,6 +11,7 @@ namespace PicSimulator.ViewModels {
         private byte wRegister;
         private Stack stack;
         private ulong cycles;
+        Dictionary<string, RegisterBit> bitArray;
 
         #region properties
         public byte WRegister {
@@ -50,35 +54,37 @@ namespace PicSimulator.ViewModels {
             }
 
         }
-        public bool[] PortB
+        public Dictionary<string, RegisterBit> PortB
         {
             get
             {
-                bool[] bitArray = new bool[8];
+                bitArray = new Dictionary<string, RegisterBit>();
                 System.Collections.BitArray ba = new BitArray(new byte[] { Register[6] });
-                for (int j = 0; j < 8; j++)
-                {
-                    bitArray[j] = ba.Get(j);
-                }
+                RegisterBit register = new RegisterBit(this);
+                ba = new BitArray(new byte[] { Register[5] });
+                register.Bit0 = ba.Get(0);
+                register.Bit1 = ba.Get(1);
+                register.Bit2 = ba.Get(2);
+                register.Bit3 = ba.Get(3);
+                register.Bit4 = ba.Get(4);
+                register.Bit5 = ba.Get(5);
+                register.Bit6 = ba.Get(6);
+                register.Bit7 = ba.Get(7);
+                register.RegisterNr = 5;
+                bitArray.Add("PORTA", register);
+                 register = new RegisterBit(this);
+                register.Bit0 = ba.Get(0);
+                register.Bit1 = ba.Get(1);
+                register.Bit2 = ba.Get(2);
+                register.Bit3 = ba.Get(3);
+                register.Bit4 = ba.Get(4);
+                register.Bit5 = ba.Get(5);
+                register.Bit6 = ba.Get(6);
+                register.Bit7 = ba.Get(7);
+                register.RegisterNr = 6;
+                bitArray.Add("PORTB", register);
                 return bitArray;
             }
-            set
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (value[j])
-                    {
-                        Register[5] = (byte)(Register[6] | (1 << j));
-                    }
-                    else
-                    {
-                        Register[5] = (byte)(Register[6] & ~(1 << j));
-                    }
-                }
-                NotifyOfPropertyChange(() => PortB);
-                NotifyOfPropertyChange(() => Register);
-            }
-
         }
         public bool[,] RegisterBit { //Funktioniert nicht, Fehler unbekannt
             get {
@@ -250,6 +256,5 @@ namespace PicSimulator.ViewModels {
         public void setDigitCarryBit(bool wert) {
             setRegister(3, 1, wert);
         }
-
     }
 }

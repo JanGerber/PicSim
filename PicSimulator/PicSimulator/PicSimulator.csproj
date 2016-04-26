@@ -78,6 +78,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Model\Register.cs" />
     <Compile Include="ViewModels\BefehlViewModel.cs" />
     <Compile Include="Model\BefehleImpl\BefehlBCF.cs" />
     <Compile Include="Model\BefehleImpl\BefehlBSF.cs" />
