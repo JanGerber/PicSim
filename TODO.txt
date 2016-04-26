@@ -18,3 +18,4 @@ RAM im User Interface
 Gesamte Laufzeit des Programms mit Auswahl der Taktzeit
 Hilfe (einbinden einer PDF)
 Fehlerbehebung Thread Management in Verbindung mit WPF
+Mapping RAM
