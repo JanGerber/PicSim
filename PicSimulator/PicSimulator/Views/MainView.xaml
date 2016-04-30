@@ -194,57 +194,7 @@
                 <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.Register[79],StringFormat=0x{0:X2}}" />
             </Grid>
         </DockPanel>
-        <!--
-        <DockPanel  Grid.Column="2" Grid.Row="1">
-            <Grid Name="InputOutput" Margin="0,220,0,0" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="15"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <TextBox Grid.Column="0" Grid.Row="0"   Text="IOPorts " Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="1" Grid.Row="0"   Text="7" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="2" Grid.Row="0"   Text="6" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="3" Grid.Row="0"   Text="5" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="4" Grid.Row="0"   Text="4" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="5" Grid.Row="0"   Text="3" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="6" Grid.Row="0"   Text="2" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="7" Grid.Row="0"   Text="1" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="8" Grid.Row="0"   Text="0" Grid.ColumnSpan="2"/>
-                <TextBox Grid.Column="0" Grid.Row="1"   Text="Port A " Grid.ColumnSpan="2"/>
-                <CheckBox Grid.Column="1" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[7], Mode=TwoWay}"/>
-                <CheckBox Grid.Column="2" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                <CheckBox Grid.Column="3" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[5]}"/>
-                <CheckBox Grid.Column="4" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[4]}"/>
-                <CheckBox Grid.Column="5" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[3]}"/>
-                <CheckBox Grid.Column="6" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[2]}"/>
-                <CheckBox Grid.Column="7" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[1]}"/>
-                <CheckBox Grid.Column="8" Grid.Row="1"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortA[0]}"/>
-
-                <TextBox Grid.Column="0" Grid.Row="2"   Text="Port B " Grid.ColumnSpan="2"/>
-                <CheckBox Grid.Column="1" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[7], Mode=TwoWay}"/>
-                <CheckBox Grid.Column="2" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[6]}"/>
-                <CheckBox Grid.Column="3" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[5]}"/>
-                <CheckBox Grid.Column="4" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[4]}"/>
-                <CheckBox Grid.Column="5" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[3]}"/>
-                <CheckBox Grid.Column="6" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[2]}"/>
-                <CheckBox Grid.Column="7" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[1]}"/>
-                <CheckBox Grid.Column="8" Grid.Row="2"  Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top"  IsChecked="{Binding Speicher.PortB[0]}"/>
-            </Grid>
-        </DockPanel>
-        -->
-        <DockPanel Grid.Column="2" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True">
+        <DockPanel Name="IOPorts" Grid.Column="2" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True" Margin="0,200,0,0">
             <ListView ItemsSource="{Binding Speicher.PortB}">
                 <ListView.View>
                     <GridView >
