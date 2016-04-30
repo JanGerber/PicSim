@@ -175,27 +175,27 @@ namespace PicSimulator.ViewModels {
         }
         public void setRegister(int adr, int bitNumber, bool wert)
         {
-            if(adr == 2 | adr == 3 | adr == 4 | adr == 10 | adr == 11) { //Überprüfung ob das Status | PCL | FSR | PCLATH | INTCON Register gewählt wurde
-                if(wert) {
+            if(adr == 1 | adr == 5 | adr == 6 | adr == 8 | adr == 9) { //Überprüfung ob TMR0/OPTION_REG | PORTA/TRISA | PORTB/TRISB |EEDATA/EECON1 |EEADR/EECON2 angesprochen wird
+                if (new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
+                    if (wert) {
+                        Register[adr + 128] = (byte)(Register[adr + 128] | (1 << bitNumber));
+                    } else {
+                        Register[adr + 128] = (byte)(Register[adr + 128] & ~(1 << bitNumber));
+                    }
+                } else {    
+                    if (wert) {
+                        Register[adr] = (byte)(Register[adr] | (1 << bitNumber));
+                    } else {
+                        Register[adr] = (byte)(Register[adr] & ~(1 << bitNumber));
+                    }
+                }
+            } else {    //Schreiben in beide Bänke
+                if (wert) {
                     Register[adr + 128] = (byte)(Register[adr + 128] | (1 << bitNumber));
                     Register[adr] = (byte)(Register[adr] | (1 << bitNumber));
                 } else {
                     Register[adr + 128] = (byte)(Register[adr + 128] & ~(1 << bitNumber));
                     Register[adr] = (byte)(Register[adr] & ~(1 << bitNumber));
-                }
-            } else {
-                if(new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
-                    if(wert) {
-                        Register[adr + 128] = (byte)(Register[adr + 128] | (1 << bitNumber));
-                    } else {
-                        Register[adr + 128] = (byte)(Register[adr + 128] & ~(1 << bitNumber));
-                    }
-                } else {
-                    if(wert) {
-                        Register[adr] = (byte)(Register[adr] | (1 << bitNumber));
-                    } else {
-                        Register[adr] = (byte)(Register[adr] & ~(1 << bitNumber));
-                    }
                 }
             }
             NotifyOfPropertyChange(() => Register);
