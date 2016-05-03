@@ -126,6 +126,17 @@ namespace PicSimulator.ViewModels {
                 NotifyOfPropertyChange(() => RegisterBit);
             }
         }
+
+        public ulong Cycles {
+            get {
+                return cycles;
+            }
+
+            set {
+                cycles = value;
+                NotifyOfPropertyChange(() => Cycles);
+            }
+        }
         #endregion
         public Speicher() {
             //gesamtes Register mit 0 initialisieren
@@ -147,7 +158,7 @@ namespace PicSimulator.ViewModels {
             //W Register init
                 WRegister = 0;
             //Cycles  auf 0
-            cycles = 0;
+            Cycles = 0;
             //Stack init
             stack = new Stack(8);
         }
@@ -181,7 +192,7 @@ namespace PicSimulator.ViewModels {
                 return Register[adresse];
         }
 
-
+    
     public void setRegister(int adr, int bitNumber, bool wert)
         {
             if(adr == 1 | adr == 5 | adr == 6 | adr == 8 | adr == 9) { //Überprüfung ob TMR0/OPTION_REG | PORTA/TRISA | PORTB/TRISB |EEDATA/EECON1 |EEADR/EECON2 angesprochen wird
@@ -241,7 +252,7 @@ namespace PicSimulator.ViewModels {
         }   
         public void addToCycles(int pCycles)
         {
-            cycles += (ulong) pCycles;
+            Cycles += (ulong) pCycles;
         }
         public void setZeroBit(bool wert) {
             if (wert) {
