@@ -4,18 +4,9 @@ Prescaler TMR0
 CounterMode TMR0
 INT Interrupt
 PORTB Interrupt
-DATA EEPROM Interrupt
 InterruptServiceRoutine (ISR) Context Saving During Interrupts
-Warchdog Timer (WDT)
-Watchdog Postscaler
-Befehl: SLEEP
-Status Affected: (DigitCarry)DC in allen betroffenen Befehlen
-I/O Pins in der UI
 Indirekte Addressierung
-Data EEPROM Memory
-Special Function Register im UI
-RAM im User Interface
 Gesamte Laufzeit des Programms mit Auswahl der Taktzeit
 Hilfe (einbinden einer PDF)
-Fehlerbehebung Thread Management in Verbindung mit WPF
-Mapping RAM
+TRIS A und TRIS B
+
