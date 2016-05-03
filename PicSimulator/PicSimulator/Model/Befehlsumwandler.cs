@@ -134,9 +134,7 @@ namespace PicSimulator.Model
 
             //TODO Fehlermeldung
             System.Console.WriteLine("FEHLER: es konnte keine Bitmaske gefunden werden");
-
-            return null;
-            
+            return null;         
         }
 
         private BefehlViewModel newANDWF(int programmCounter, int befehlOpcode) {
