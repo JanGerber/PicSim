@@ -17,12 +17,23 @@ namespace PicSimulator.Model  {
 
         public bool Bit0 {
             get {
-                return speicher.getRegister(registerNr,0);
+
+                    return speicher.getRegister(registerNr, 0);
+                
             }
 
             set {
-                speicher.setRegister(registerNr,0,value);
-
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 0)) {
+                            speicher.setRegister(registerNr, 0, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 0)) {
+                        speicher.setRegister(registerNr, 0, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 0, value);
+                }
             }
         }
 
@@ -32,7 +43,17 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                speicher.setRegister(registerNr, 1, value);
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 1)) {
+                        speicher.setRegister(registerNr, 1, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 1)) {
+                        speicher.setRegister(registerNr, 1, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 1, value);
+                }
 
             }
         }
@@ -43,7 +64,17 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                speicher.setRegister(registerNr, 2, value);
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 2)) {
+                        speicher.setRegister(registerNr, 2, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 2)) {
+                        speicher.setRegister(registerNr, 2, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 2, value);
+                }
 
             }
         }
@@ -54,7 +85,17 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                speicher.setRegister(registerNr, 3, value);
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 3)) {
+                        speicher.setRegister(registerNr, 3, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 3)) {
+                        speicher.setRegister(registerNr, 3, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 3, value);
+                }
 
             }
         }
@@ -65,7 +106,17 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                speicher.setRegister(registerNr, 4, value);
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 4)) {
+                        speicher.setRegister(registerNr,4, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 4)) {
+                        speicher.setRegister(registerNr, 4, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 4, value);
+                }
             }
         }
 
@@ -75,7 +126,17 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                speicher.setRegister(registerNr, 5, value);
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 5)) {
+                        speicher.setRegister(registerNr, 5, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 5)) {
+                        speicher.setRegister(registerNr, 5, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 5, value);
+                }
             }
         }
 
@@ -85,7 +146,17 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                speicher.setRegister(registerNr, 6, value);
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 6)) {
+                        speicher.setRegister(registerNr, 6, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 6)) {
+                        speicher.setRegister(registerNr,6, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 6, value);
+                }
             }
         }
 
@@ -95,7 +166,17 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                speicher.setRegister(registerNr, 7, value);
+                if (registerNr == 5) {
+                    if (speicher.getRegisterOhneBank(0x85, 7)) {
+                        speicher.setRegister(registerNr, 7, value);
+                    }
+                } else if (registerNr == 6) {
+                    if (speicher.getRegisterOhneBank(0x86, 7)) {
+                        speicher.setRegister(registerNr, 7, value);
+                    }
+                } else {
+                    speicher.setRegister(registerNr, 7, value);
+                }
             }
         }
 

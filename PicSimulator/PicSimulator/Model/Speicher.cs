@@ -59,9 +59,9 @@ namespace PicSimulator.ViewModels {
             get
             {
                 bitArray = new Dictionary<string, RegisterBit>();
-                System.Collections.BitArray ba = new BitArray(new byte[] { Register[6] });
-                RegisterBit register = new RegisterBit(this);
-                ba = new BitArray(new byte[] { Register[5] });
+                System.Collections.BitArray ba = new BitArray(new byte[] { Register[5] });
+
+                RegisterBit register = new RegisterBit(this);   
                 register.Bit0 = ba.Get(0);
                 register.Bit1 = ba.Get(1);
                 register.Bit2 = ba.Get(2);
@@ -72,7 +72,9 @@ namespace PicSimulator.ViewModels {
                 register.Bit7 = ba.Get(7);
                 register.RegisterNr = 5;
                 bitArray.Add("PORTA", register);
-                 register = new RegisterBit(this);
+
+                ba = new BitArray(new byte[] { Register[6] });
+                register = new RegisterBit(this);
                 register.Bit0 = ba.Get(0);
                 register.Bit1 = ba.Get(1);
                 register.Bit2 = ba.Get(2);
@@ -148,8 +150,6 @@ namespace PicSimulator.ViewModels {
             cycles = 0;
             //Stack init
             stack = new Stack(8);
-            //AusgabeSpeicher Testen
-            Register[5] = 255;
         }
 
         public byte getRegister(int adresse) {
@@ -173,7 +173,16 @@ namespace PicSimulator.ViewModels {
                 return ba.Get(bitNumber);
             }
         }
-        public void setRegister(int adr, int bitNumber, bool wert)
+        public bool getRegisterOhneBank(int adresse, int bitNumber) {
+                System.Collections.BitArray ba = new BitArray(new byte[] { Register[adresse] });
+                return ba.Get(bitNumber);
+        }
+        public byte getRegisterOhneBank(int adresse) {
+                return Register[adresse];
+        }
+
+
+    public void setRegister(int adr, int bitNumber, bool wert)
         {
             if(adr == 1 | adr == 5 | adr == 6 | adr == 8 | adr == 9) { //Überprüfung ob TMR0/OPTION_REG | PORTA/TRISA | PORTB/TRISB |EEDATA/EECON1 |EEADR/EECON2 angesprochen wird
                 if (new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
