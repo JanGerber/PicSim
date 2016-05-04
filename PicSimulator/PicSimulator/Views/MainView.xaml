@@ -26,7 +26,7 @@
         <Button x:Name="StepProgramm" Content="Schritt vorwärts" HorizontalAlignment="Left" Height="55" Margin="324,55,0,0" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Width="100"/>
         <TextBlock x:Name="AusgabeFeld"  HorizontalAlignment="Left"  Margin="0,428,0,0" TextWrapping="Wrap" Text="{Binding Dateiname}" VerticalAlignment="Top" Height="36" Width="670" Grid.Row="1" Grid.ColumnSpan="2"/>
 
-        <DockPanel Grid.Column="0" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True">
+        <DockPanel Grid.Column="0" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True" Margin="0,0,0,40">
             <ListView ItemsSource="{Binding OpcodesObj}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -260,6 +260,20 @@
 
             </ListView>
         </DockPanel>
+        
+        <DockPanel  Grid.Column="0" Grid.Row="1" Margin="0,550,0,0">
+            <Grid Name="Cycles">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Column="0" Grid.Row="1"   Text="Cycles " Grid.ColumnSpan="2"/>
+                <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.Cycles}" />
+                
+            </Grid>
+        </DockPanel>
     </Grid>
-
 </Window>
