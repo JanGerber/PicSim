@@ -12,6 +12,8 @@ namespace PicSimulator.ViewModels {
         private Stack stack;
         private ulong cycles;
         Dictionary<string, RegisterBit> bitArray;
+        private bool interrupt;
+
 
         #region properties
         public byte WRegister {
@@ -137,6 +139,16 @@ namespace PicSimulator.ViewModels {
                 NotifyOfPropertyChange(() => Cycles);
             }
         }
+
+        public bool Interrupt {
+            get {
+                return interrupt;
+            }
+
+            set {
+                interrupt = value;
+            }
+        }
         #endregion
         public Speicher() {
             //gesamtes Register mit 0 initialisieren
@@ -241,8 +253,10 @@ namespace PicSimulator.ViewModels {
                     if (Register[1] == 255) {
                         Register[1]++;
                         //setzte Interrupt Flag
-                        if(getRegister(0x0B, 5) && getRegister(0x0B, 5)) { //Ueberpruefe ob GIE AND INTCON<5>
-                            setRegister(0x0B, 2, true); //Overflow sets bit T0IF(INTCON < 2 >).
+                        setRegister(0x0B, 2, true); //Overflow sets bit T0IF(INTCON < 2 >).
+                        if (getRegister(0x0B, 5) && getRegister(0x0B, 5)) { //Ueberpruefe ob GIE AND INTCON<5>
+                            Interrupt = true;
+                            setRegister(0x0B, 7, false); //clear GIE
                         }
                     } else {
                         Register[1]++;

@@ -113,6 +113,7 @@ namespace PicSimulator.Model  {
                 } else if (registerNr == 6) {
                     if (speicher.getRegisterOhneBank(0x86, 4)) {
                         speicher.setRegister(registerNr, 4, value);
+                        interruptPortB();
                     }
                 } else {
                     speicher.setRegister(registerNr, 4, value);
@@ -131,8 +132,9 @@ namespace PicSimulator.Model  {
                         speicher.setRegister(registerNr, 5, value);
                     }
                 } else if (registerNr == 6) {
-                    if (speicher.getRegisterOhneBank(0x86, 5)) {
+                    if (speicher.getRegisterOhneBank(0x86,5)) {
                         speicher.setRegister(registerNr, 5, value);
+                        interruptPortB();
                     }
                 } else {
                     speicher.setRegister(registerNr, 5, value);
@@ -153,6 +155,7 @@ namespace PicSimulator.Model  {
                 } else if (registerNr == 6) {
                     if (speicher.getRegisterOhneBank(0x86, 6)) {
                         speicher.setRegister(registerNr,6, value);
+                        interruptPortB();
                     }
                 } else {
                     speicher.setRegister(registerNr, 6, value);
@@ -166,13 +169,14 @@ namespace PicSimulator.Model  {
             }
 
             set {
-                if (registerNr == 5) {
+                if (registerNr == 5) { //PORT A
                     if (speicher.getRegisterOhneBank(0x85, 7)) {
                         speicher.setRegister(registerNr, 7, value);
                     }
-                } else if (registerNr == 6) {
+                } else if (registerNr == 6) { //PORT B
                     if (speicher.getRegisterOhneBank(0x86, 7)) {
                         speicher.setRegister(registerNr, 7, value);
+                        interruptPortB();
                     }
                 } else {
                     speicher.setRegister(registerNr, 7, value);
@@ -187,6 +191,13 @@ namespace PicSimulator.Model  {
 
             set {
                 registerNr = value;
+            }
+        }
+        private void interruptPortB() {
+            speicher.setRegister(0x0B, 0, true); //set INTCON<0>).
+            if (speicher.getRegister(0x0B,7) && speicher.getRegister(0x0B, 3)) { //GIE  && INTCON<3>
+                speicher.Interrupt = true;
+                speicher.setRegister(0x0B, 7, false);
             }
         }
     }

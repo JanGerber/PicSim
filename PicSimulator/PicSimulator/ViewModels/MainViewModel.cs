@@ -183,7 +183,13 @@ namespace PicSimulator.ViewModels {
         }
         private void worker_StartProgrammThread(object sender, DoWorkEventArgs e) {
             System.Console.WriteLine("StartProgrammThread");
-            while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+            while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint ) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+                if (speicher.Interrupt) {
+                    speicher.Interrupt = false;
+                    speicher.pushStack(ProgrammCounter);
+                    //TODO speicher.setRegister() PCL und PCH
+                    ProgrammCounter = 4;  
+                }
                 //System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
                 ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
             }
