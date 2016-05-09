@@ -1,12 +1,11 @@
 TODO Liste:
 
 Prescaler TMR0
-CounterMode TMR0
++ CounterMode TMR0
 INT Interrupt
-PORTB Interrupt
 InterruptServiceRoutine (ISR) Context Saving During Interrupts
 Indirekte Addressierung
 Gesamte Laufzeit des Programms mit Auswahl der Taktzeit
 Hilfe (einbinden einer PDF)
-TRIS A und TRIS B
-
+Stack Ausgabe
+Kommentare
