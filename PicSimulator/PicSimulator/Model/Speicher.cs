@@ -13,6 +13,7 @@ namespace PicSimulator.ViewModels {
         private ulong cycles;
         Dictionary<string, RegisterBit> bitArray;
         private bool interrupt;
+        Dictionary<int, String> stackAusgabe;
 
 
         #region properties
@@ -160,11 +161,6 @@ namespace PicSimulator.ViewModels {
                 }
                 return stackplatz;
             }
-
-            set {
-                //stack = value;
-                NotifyOfPropertyChange(() => StackAusgabe);
-            }
         }
         #endregion
         public Speicher() {
@@ -299,10 +295,14 @@ namespace PicSimulator.ViewModels {
             setRegister(3, 0, wert);
         }
         public int popStack() {
-            return (int)stack.Pop();
+            int  lastELement = (int)stack.Pop();
+            NotifyOfPropertyChange(() => StackAusgabe);
+            return  lastELement;
+            
         }
         public void pushStack(int addresse) {
             stack.Push(addresse);
+            NotifyOfPropertyChange(() => StackAusgabe);
         }
         public void setDigitCarryBit(bool wert) {
             setRegister(3, 1, wert);
