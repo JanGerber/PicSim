@@ -197,8 +197,28 @@ namespace PicSimulator.Model  {
             speicher.setRegister(0x0B, 0, true); //set INTCON<0>).
             if (speicher.getRegister(0x0B,7) && speicher.getRegister(0x0B, 3)) { //GIE  && INTCON<3>
                 speicher.Interrupt = true;
-                speicher.setRegister(0x0B, 7, false);
+                speicher.setRegister(0x0B, 7, false); //clear GIE
             }
+        }
+        private void interruptINT() { //TODO INT Interrupt
+            if (speicher.getRegisterOhneBank(0x81, 6)) { // INTEDG bit (OPTION_REG<6>)
+                if (speicher.getRegisterOhneBank(6,0)) { // if rising edge
+                    speicher.setRegister(0x0B, 1, true);      //   INTF    bit (INTCON < 1 >)
+                    if (speicher.getRegister(0x0B, 7) && speicher.getRegister(0x0B, 4)) { //GIE  && INTCON<4>
+                        speicher.Interrupt = true;
+                        speicher.setRegister(0x0B, 7, false); //clear GIE
+                    }
+                }
+            } else {
+                if (!speicher.getRegisterOhneBank(6, 0)) { // if falling edge
+                    speicher.setRegister(0x0B, 1, true);     //   INTF    bit (INTCON < 1 >)
+                    if (speicher.getRegister(0x0B, 7) && speicher.getRegister(0x0B, 4)) { //GIE  && INTCON<4>
+                        speicher.Interrupt = true;
+                        speicher.setRegister(0x0B, 7, false); //clear GIE
+                    }
+                }
+            }
+
         }
     }
 
