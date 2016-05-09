@@ -30,6 +30,7 @@ namespace PicSimulator.Model  {
                 } else if (registerNr == 6) {
                     if (speicher.getRegisterOhneBank(0x86, 0)) {
                         speicher.setRegister(registerNr, 0, value);
+                        interruptINT();
                     }
                 } else {
                     speicher.setRegister(registerNr, 0, value);
