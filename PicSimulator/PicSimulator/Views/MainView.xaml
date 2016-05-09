@@ -195,10 +195,10 @@
                 <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.Register[79],StringFormat=0x{0:X2}}" IsReadOnly="True"/>
             </Grid>
         </DockPanel>
-        <DockPanel Name="IOPorts" Grid.Column="2" Grid.Row="1" Height="auto" Width="auto" LastChildFill="True" Margin="0,200,0,0">
+        <DockPanel Name="IOPorts" Grid.Column="2" Grid.Row="1" Height="100" Width="400" LastChildFill="True" Margin="0,215,377,270">
             <ListView ItemsSource="{Binding Speicher.PortB}">
-                <ListView.View>
-                    <GridView >
+                <ListView.View >
+                    <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="Register" Width="100" />
                         <GridViewColumn Header="7" >
                             <GridViewColumn.CellTemplate>
@@ -261,7 +261,15 @@
 
             </ListView>
         </DockPanel>
-        
+
+        <DockPanel Grid.Column="2" Grid.Row="0" Margin="250,0,0,0">
+            <ListView ItemsSource="{Binding Speicher.StackAusgabe}">
+                <GridView>
+                    <GridViewColumn  Header="Register" Width="100" DisplayMemberBinding="{Binding Key}" />
+                </GridView>
+            </ListView>
+        </DockPanel>
+
         <DockPanel  Grid.Column="0" Grid.Row="1" Margin="0,550,0,0">
             <Grid Name="Cycles">
                 <Grid.ColumnDefinitions>
@@ -273,7 +281,6 @@
                 </Grid.RowDefinitions>
                 <TextBox Grid.Column="0" Grid.Row="1"   Text="Cycles " Grid.ColumnSpan="2" IsReadOnly="True"/>
                 <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.Cycles}"  IsReadOnly="True"/>
-                
             </Grid>
         </DockPanel>
     </Grid>

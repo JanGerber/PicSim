@@ -150,14 +150,20 @@ namespace PicSimulator.ViewModels {
             }
         }
 
-        public Stack Stack {
+        public Dictionary<int,String> StackAusgabe {
             get {
-                return stack;
+                Dictionary<int, String> stackplatz = new Dictionary<int, string>();
+                int i = 0;
+                foreach (Object obj in stack) {
+                    stackplatz.Add(i, obj.ToString());
+                    i++;
+                }
+                return stackplatz;
             }
 
             set {
-                stack = value;
-                NotifyOfPropertyChange(() => Stack);
+                //stack = value;
+                NotifyOfPropertyChange(() => StackAusgabe);
             }
         }
         #endregion
@@ -183,7 +189,7 @@ namespace PicSimulator.ViewModels {
             //Cycles  auf 0
             Cycles = 0;
             //Stack init
-            Stack = new Stack(8);
+            stack = new Stack(8);
         }
 
         public byte getRegister(int adresse) {
@@ -293,10 +299,10 @@ namespace PicSimulator.ViewModels {
             setRegister(3, 0, wert);
         }
         public int popStack() {
-            return (int)Stack.Pop();
+            return (int)stack.Pop();
         }
         public void pushStack(int addresse) {
-            Stack.Push(addresse);
+            stack.Push(addresse);
         }
         public void setDigitCarryBit(bool wert) {
             setRegister(3, 1, wert);
