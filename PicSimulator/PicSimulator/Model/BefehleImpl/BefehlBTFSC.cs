@@ -28,7 +28,7 @@ namespace PicSimulator.Model {
         public override int ausfuehren(ref Speicher speicher) {
             int addToProgrammCounter;
             int cycle = 0;
-            if(speicher.getRegister(parameter1, parameter2)) {
+            if(speicher.getRegister(getParameter(speicher, parameter1), parameter2)) {
                 cycle = 1;
                 addToProgrammCounter = 1;
             } else { 

@@ -25,17 +25,17 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
-            int result = ((int)speicher.getRegister(parameter1)) >> 1;
+            int result = ((int)speicher.getRegister(getParameter(speicher, parameter1))) >> 1;
             if (speicher.getRegister(3, 0)) {
                 result += 255;
             }
             if (parameter2) { // if parameter2 is true than store the result in the register
-                speicher.setRegister(parameter1, (byte)(result));
+                speicher.setRegister(getParameter(speicher, parameter1), (byte)(result));
             } else { //otherwise in the W-Register
                 speicher.WRegister = (byte)(result);
             }
             //Status Affected: C
-                if((speicher.getRegister(parameter1) & 1) == 1) {
+                if((speicher.getRegister(getParameter(speicher, parameter1)) & 1) == 1) {
                     speicher.setCarryBit(true);
                 } else {
                     speicher.setCarryBit(false);

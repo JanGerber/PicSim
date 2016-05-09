@@ -62,5 +62,13 @@ namespace PicSimulator.ViewModel {  //Namespace stellt sowas wie ein Package dar
                 NotifyOfPropertyChange(() => Background);
             }
         }
+        public int getParameter(Speicher speicher,int param) {
+            if(param == 0) {
+                return speicher.getRegister(4);
+            } else {
+                return param;
+            }
+            
+        }
     }
 }

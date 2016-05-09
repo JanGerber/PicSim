@@ -25,7 +25,7 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
-            speicher.setRegister(parameter1, parameter2, false); //Bit parameter1 in register parameter2 is cleared
+            speicher.setRegister(getParameter(speicher, parameter1), parameter2, false); //Bit parameter1 in register parameter2 is cleared
             //Status Affected
                 //none
             //Gesamt Cycles und TMR0

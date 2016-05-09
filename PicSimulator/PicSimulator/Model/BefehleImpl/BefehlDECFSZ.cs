@@ -30,10 +30,10 @@ namespace PicSimulator.Model {
             int cycles = 0;
             bool isStoredW;
             if(parameter2) { // if parameter2 is true than store the result in the register
-                speicher.setRegister(parameter1, (byte)(speicher.getRegister(parameter1)-1));
+                speicher.setRegister(getParameter(speicher, parameter1), (byte)(speicher.getRegister(getParameter(speicher, parameter1)) -1));
                 isStoredW = false ;
             } else { //otherwise in the W-Register
-                speicher.WRegister = (byte)(speicher.getRegister(parameter1)-1);
+                speicher.WRegister = (byte)(speicher.getRegister(getParameter(speicher, parameter1)) -1);
                 isStoredW = true;
             }
             if(isStoredW) {
@@ -42,7 +42,7 @@ namespace PicSimulator.Model {
                     cycles = 1;
                 }
             }else {
-                if(speicher.getRegister(parameter1) == 0) {
+                if(speicher.getRegister(getParameter(speicher, parameter1)) == 0) {
                     addToProgrammCounter = 2;
                     cycles = 1;
                 }
