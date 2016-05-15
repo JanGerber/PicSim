@@ -125,7 +125,7 @@ namespace PicSimulator.ViewModels {
         #endregion //constructur
 
         #region methods
-        public void OpenFile() {
+        public void OpenFile() {        //Wird beim Drücken des Buttons "Datei öffnen" ausgeführt
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
             // Set filter for file extension and default file extension 
@@ -138,9 +138,9 @@ namespace PicSimulator.ViewModels {
             if (result == true) {
                 // Open document 
                 filename = dlg.FileName;
-                ProgrammModel programModel = new ProgrammModel(filename);
-                Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
-                OpcodesObj = wandler.OpcodesObj;
+                ProgrammModel programModel = new ProgrammModel(filename); //Dictionary mit Befehlen anlegen
+                Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes); 
+                OpcodesObj = wandler.OpcodesObj;    //Opcodes in Befehle umwandeln
                 Dateiname = filename;
                 foreach (KeyValuePair<int,BefehlViewModel> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
                     System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
@@ -151,9 +151,7 @@ namespace PicSimulator.ViewModels {
             }
             
         }
-        public void StartProgramm() {
-           
-
+        public void StartProgramm() {   //Wird beim Klicken des Buttons Start aufgerufen
             stopProgramm = false;
             if (_opcodesObj != null) {
                 if (Speicher == null) {
@@ -164,14 +162,14 @@ namespace PicSimulator.ViewModels {
                 }
             }
         }
-        public void StopProgramm() {
+        public void StopProgramm() {    //Wird beim Klicken des Buttons Stop aufgerufen
             Console.WriteLine("Stopbutton gedrueckt");
             stopProgramm = true;
         }
-        public void ResetProgramm() {
+        public void ResetProgramm() {   //Wird beim Klicken des Buttons Zurücksetzen aufgerufen
             resetProgramm = true;
         }
-        public void StepProgramm() {
+        public void StepProgramm() {    //Wird beim Klicken des Buttons Schritt Vorwärts aufgerufen
             Console.WriteLine("Schritt-V-button gedrueckt");
             if (_opcodesObj != null) {
                 if (Speicher == null) {

@@ -21,8 +21,7 @@ namespace PicSimulator.Model
             }
             OpcodesObj = opcodesObjImpl;
         }
-        private BefehlViewModel wandleBefehl(int key, int befehlOpcode) {
-            //BitArray bit = new BitArray(new int[] { befehlOpcode });
+        private BefehlViewModel wandleBefehl(int key, int befehlOpcode) { //BitArray bit = new BitArray(new int[] { befehlOpcode });
 
             #region Befehlscodemaske
             if ((befehlOpcode & ADDLW) == ADDLW) {
