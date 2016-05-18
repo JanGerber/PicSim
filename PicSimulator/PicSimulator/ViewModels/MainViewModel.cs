@@ -51,7 +51,7 @@ namespace PicSimulator.ViewModels {
                 _fileNameContent = value;
                 NotifyOfPropertyChange(() => FileNameContent);
 
-      
+
             }
         }
 
@@ -68,13 +68,11 @@ namespace PicSimulator.ViewModels {
 
         public string Dateiname     //function für Zugriff auf die Texteigenschaft des Textblock-Elements der Oberfläche
         {
-            get
-            {
+            get {
                 return _Dateiname;
             }
 
-            set
-            {
+            set {
                 _Dateiname = value;
                 NotifyOfPropertyChange(() => Dateiname);
             }
@@ -85,7 +83,8 @@ namespace PicSimulator.ViewModels {
                 return programmCounter;
             }
 
-            set { 
+            set {
+                programmCounter = value;
                 foreach (KeyValuePair<int, BefehlViewModel> befehl in OpcodesObj) {
                     if (befehl.Value.ProgrammCounter == ProgrammCounter) {
                         befehl.Value.Background = Brushes.LightGray;
@@ -93,7 +92,6 @@ namespace PicSimulator.ViewModels {
                         befehl.Value.Background = Brushes.White;
                     }
                 }
-                programmCounter = value;
                 NotifyOfPropertyChange(() => ProgrammCounter);
             }
         }
@@ -139,17 +137,17 @@ namespace PicSimulator.ViewModels {
                 // Open document 
                 filename = dlg.FileName;
                 ProgrammModel programModel = new ProgrammModel(filename); //Dictionary mit Befehlen anlegen
-                Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes); 
+                Befehlsumwandler wandler = new Befehlsumwandler(programModel.Opcodes);
                 OpcodesObj = wandler.OpcodesObj;    //Opcodes in Befehle umwandeln
                 Dateiname = filename;
-                foreach (KeyValuePair<int,BefehlViewModel> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
-                    System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 +" " + befehl.Value.Parameter2);
+                foreach (KeyValuePair<int, BefehlViewModel> befehl in wandler.OpcodesObj) {    //Ausgabe der Befehle und Operatoren auf der Konsole
+                    System.Console.WriteLine(befehl.Value.BefehlsName + " " + befehl.Value.Parameter1 + " " + befehl.Value.Parameter2);
                 }
                 Speicher = new Speicher();
             } else {
                 //TODO Fehler
             }
-            
+
         }
         public void StartProgramm() {   //Wird beim Klicken des Buttons Start aufgerufen
             stopProgramm = false;
@@ -157,8 +155,8 @@ namespace PicSimulator.ViewModels {
                 if (Speicher == null) {
                     Speicher = new Speicher();
                 }
-                if (!prgWorker.IsBusy) { 
-                prgWorker.RunWorkerAsync();
+                if (!prgWorker.IsBusy) {
+                    prgWorker.RunWorkerAsync();
                 }
             }
         }
@@ -168,6 +166,8 @@ namespace PicSimulator.ViewModels {
         }
         public void ResetProgramm() {   //Wird beim Klicken des Buttons Zurücksetzen aufgerufen
             resetProgramm = true;
+            Speicher = new Speicher();
+            ProgrammCounter = 0;
         }
         public void StepProgramm() {    //Wird beim Klicken des Buttons Schritt Vorwärts aufgerufen
             Console.WriteLine("Schritt-V-button gedrueckt");
@@ -176,17 +176,17 @@ namespace PicSimulator.ViewModels {
                     Speicher = new Speicher();
                 }
                 System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
-                ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);  
+                ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
             }
         }
         private void worker_StartProgrammThread(object sender, DoWorkEventArgs e) {
             System.Console.WriteLine("StartProgrammThread");
-            while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint ) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
+            while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
                 if (speicher.Interrupt) {
                     speicher.Interrupt = false;
                     speicher.pushStack(ProgrammCounter);
                     //TODO speicher.setRegister() PCL und PCH
-                    ProgrammCounter = 4;  
+                    ProgrammCounter = 4;
                 }
                 //System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
                 ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
@@ -207,7 +207,20 @@ namespace PicSimulator.ViewModels {
                 }
                 NotifyOfPropertyChange(() => ProgrammCounter);
             }
-            
+
+        }
+        public void OpenHelp() {   //Wird beim Klicken des Buttons Zurücksetzen aufgerufen
+            //Convert The resource Data into Byte[]
+            byte[] PDF = Properties.Resources.hilfePic;
+            System.IO.MemoryStream ms = new System.IO.MemoryStream(PDF);
+            //Create PDF File From Binary of resources folders help.pdf
+            System.IO.FileStream f = new System.IO.FileStream("help.pdf", System.IO.FileMode.OpenOrCreate);
+            //Write Bytes into Our Created help.pdf
+            ms.WriteTo(f);
+            f.Close();
+            ms.Close();
+            // Finally Show the Created PDF from resources
+            System.Diagnostics.Process.Start("help.pdf");
         }
         #endregion //methods
     }

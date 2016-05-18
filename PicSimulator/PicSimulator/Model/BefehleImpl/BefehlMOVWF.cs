@@ -25,7 +25,7 @@ namespace PicSimulator.Model {
         }
 
         public override int ausfuehren(ref Speicher speicher) {
-            speicher.WRegister = speicher.getRegister(getParameter(speicher, parameter1));
+            speicher.setRegister(getParameter(speicher,parameter1), speicher.WRegister);
             //Status Affected 
                 //None
             //Gesamt Cycles und TMR0

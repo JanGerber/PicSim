@@ -14,6 +14,7 @@ namespace PicSimulator.ViewModels {
         Dictionary<string, RegisterBit> bitArray;
         private bool interrupt;
         Dictionary<int, String> stackAusgabe;
+        private int psa_counter;
 
 
         #region properties
@@ -186,6 +187,8 @@ namespace PicSimulator.ViewModels {
             Cycles = 0;
             //Stack init
             stack = new Stack(8);
+            //psa counter
+            psa_counter = 0;
         }
 
         public byte getRegister(int adresse) {
@@ -263,20 +266,91 @@ namespace PicSimulator.ViewModels {
         public void addToTimer(int timeAdd) {
             if (!((Register[0x81] &  0x20)==32) ) {        //T0CS(OPTION_REG<5>) ist leer 
                 for (int i = 0; i < timeAdd; i++) {
-                    if (Register[1] == 255) {
-                        Register[1]++;
-                        //setzte Interrupt Flag
-                        setRegister(0x0B, 2, true); //Overflow sets bit T0IF(INTCON < 2 >).
-                        if (getRegister(0x0B, 5) && getRegister(0x0B, 5)) { //Ueberpruefe ob GIE AND INTCON<5>
-                            Interrupt = true;
-                            setRegister(0x0B, 7, false); //clear GIE
-                        }
-                    } else {
-                        Register[1]++;
-                    }
+                    addToTimerHelper();
                 }
             }
-        }   
+        }
+        public void addToTimerHelper() {
+            // Check PSA (1 = Prescaler für WDT (kein TMR0); 0 = Prescaler für TMR0)
+            if (!getRegisterOhneBank(0x81,3)){
+                // PSA = 0
+                //increase With PSA
+                int psa_bits = register[0x81] & 7;
+                psa_counter++;
+                switch (psa_bits) {
+                    case 0:
+                        if (psa_counter >= 2) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+                    case 1:
+                        if (psa_counter >= 4) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+                    case 2:
+                        if (psa_counter >= 8) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+                    case 3:
+                        if (psa_counter >= 16) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+                    case 4:
+                        if (psa_counter >= 32) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+                    case 5:
+                        if (psa_counter >= 64) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+                    case 6:
+                        if (psa_counter >= 128) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+                    case 7:
+                        if (psa_counter >= 256) {
+                            erhoeheTimer0counter();
+                            psa_counter = 0;
+                        }
+                        break;
+
+                    default:
+                        break;
+
+                }
+            }else{
+                // PSA = 1
+                erhoeheTimer0counter();
+            }
+        }
+
+        private void erhoeheTimer0counter() {
+            if (Register[1] == 255) {
+                Register[1]++;
+                //setzte Interrupt Flag
+                setRegister(0x0B, 2, true); //Overflow sets bit T0IF(INTCON < 2 >).
+                if (getRegister(0x0B, 5) && getRegister(0x0B, 5)) { //Ueberpruefe ob GIE AND INTCON<5>
+                    Interrupt = true;
+                    setRegister(0x0B, 7, false); //clear GIE
+                }
+            } else {
+                Register[1]++;
+            }
+        }
+
         public void addToCycles(int pCycles)
         {
             Cycles += (ulong) pCycles;

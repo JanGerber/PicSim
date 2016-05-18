@@ -110,6 +110,7 @@ namespace PicSimulator.Model  {
                 if (registerNr == 5) {
                     if (speicher.getRegisterOhneBank(0x85, 4)) {
                         speicher.setRegister(registerNr,4, value);
+                        counterMode(value);
                     }
                 } else if (registerNr == 6) {
                     if (speicher.getRegisterOhneBank(0x86, 4)) {
@@ -118,6 +119,20 @@ namespace PicSimulator.Model  {
                     }
                 } else {
                     speicher.setRegister(registerNr, 4, value);
+                }
+            }
+        }
+
+        private void counterMode( bool newValue) {
+            if (speicher.getRegisterOhneBank(0x81, 4)) { //(OPTION_REG<5>).
+                if (speicher.getRegisterOhneBank(0x81, 4)) {   //T0SE  (OPTION_REG < 4 >).
+                    if (!newValue) { //fallende Flanke?
+                        speicher.addToTimerHelper();
+                    }
+                } else {
+                    if (newValue) {  //steigende Flanke?
+                        speicher.addToTimerHelper();
+                    }
                 }
             }
         }
