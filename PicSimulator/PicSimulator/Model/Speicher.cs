@@ -15,6 +15,12 @@ namespace PicSimulator.ViewModels {
         private bool interrupt;
         Dictionary<int, String> stackAusgabe;
         private int psa_counter;
+        private double frequenz;
+        private int timeInyS;
+        private WhatchdogTimer wdt;
+
+
+
 
 
         #region properties
@@ -123,7 +129,6 @@ namespace PicSimulator.ViewModels {
             get {
                 return register;
             }
-
             set {
                 register = value;
                 NotifyOfPropertyChange(() => Register);
@@ -135,7 +140,6 @@ namespace PicSimulator.ViewModels {
             get {
                 return cycles;
             }
-
             set {
                 cycles = value;
                 NotifyOfPropertyChange(() => Cycles);
@@ -161,6 +165,37 @@ namespace PicSimulator.ViewModels {
                     i++;
                 }
                 return stackplatz;
+            }
+        }
+
+        public double Frequenz {
+            get {
+                return frequenz;
+            }
+            set {
+                frequenz = value;
+                berechneTime();
+                NotifyOfPropertyChange(() => Frequenz);
+            }
+        }
+
+        public int TimeInyS {
+            get {
+                return timeInyS;
+            }
+            set {
+                timeInyS = value;
+                NotifyOfPropertyChange(() => TimeInyS);
+            }
+        }
+
+        public WhatchdogTimer Wdt {
+            get {
+                return wdt;
+            }
+
+            set {
+                wdt = value;
             }
         }
         #endregion
@@ -189,6 +224,13 @@ namespace PicSimulator.ViewModels {
             stack = new Stack(8);
             //psa counter
             psa_counter = 0;
+            //Whatchdog Timer
+            Wdt = new WhatchdogTimer(this);
+            //vergangene Zeit
+            TimeInyS = 0;
+            //Frequenz
+            Frequenz = 1;
+
         }
 
         public byte getRegister(int adresse) {
@@ -225,7 +267,7 @@ namespace PicSimulator.ViewModels {
         {
             if(adr == 1 | adr == 5 | adr == 6 | adr == 8 | adr == 9) { //Überprüfung ob TMR0/OPTION_REG | PORTA/TRISA | PORTB/TRISB |EEDATA/EECON1 |EEADR/EECON2 angesprochen wird
                 if (new BitArray(new byte[] { Register[3] }).Get(5)) { //RP0 gesetzt / Welche Bank ist ausgewählt ?
-                    if (wert) {
+                if (wert) {
                         Register[adr + 128] = (byte)(Register[adr + 128] | (1 << bitNumber));
                     } else {
                         Register[adr + 128] = (byte)(Register[adr + 128] & ~(1 << bitNumber));
@@ -354,6 +396,7 @@ namespace PicSimulator.ViewModels {
         public void addToCycles(int pCycles)
         {
             Cycles += (ulong) pCycles;
+            berechneTime();
         }
         public void setZeroBit(bool wert) {
             if (wert) {
@@ -381,5 +424,10 @@ namespace PicSimulator.ViewModels {
         public void setDigitCarryBit(bool wert) {
             setRegister(3, 1, wert);
         }
+        private void berechneTime() {
+            //TODO berechneTime
+            NotifyOfPropertyChange(() => TimeInyS);
+        }
+
     }
 }
