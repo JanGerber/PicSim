@@ -92,6 +92,10 @@ namespace PicSimulator.ViewModels {
                         befehl.Value.Background = Brushes.White;
                     }
                 }
+                Speicher.setRegister(2,(byte) value); //set PCL
+                int newPCLath = (int)Speicher.getRegister(0x0A) >> 8;
+                newPCLath = newPCLath & 0x1F; //
+                Speicher.setRegister(0x0A,(byte)newPCLath); //set PCH
                 NotifyOfPropertyChange(() => ProgrammCounter);
             }
         }
@@ -176,6 +180,13 @@ namespace PicSimulator.ViewModels {
                     Speicher = new Speicher();
                 }
                 System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
+                if (speicher.Interrupt) {
+                    speicher.Interrupt = false;
+                    speicher.pushStack(ProgrammCounter + 1);
+                    Speicher.setRegister(2, 4); //set PCL
+                    Speicher.setRegister(0x0A, 0); //set PCH
+                    ProgrammCounter = 4;
+                }
                 ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
             }
         }
@@ -184,11 +195,11 @@ namespace PicSimulator.ViewModels {
             while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
                 if (speicher.Interrupt) {
                     speicher.Interrupt = false;
-                    speicher.pushStack(ProgrammCounter);
-                    //TODO speicher.setRegister() PCL und PCH
+                    speicher.pushStack(ProgrammCounter + 1);
+                    Speicher.setRegister(2, 4); //set PCL
+                    Speicher.setRegister(0x0A, 0); //set PCH
                     ProgrammCounter = 4;
                 }
-                //System.Console.WriteLine(ProgrammCounter + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.BefehlsName + " " + _opcodesObj.ElementAt(ProgrammCounter).Value.Parameter1 + " | " + speicher.WRegister);
                 ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
             }
         }
