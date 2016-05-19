@@ -27,6 +27,7 @@ namespace PicSimulator.Model {
             //Status effekted
             speicher.setRegister(3,4,true);//TO (Time-Out Bit)setzen
             speicher.setRegister(3, 3, false); //Power down bit clearen
+            speicher.Wdt.Sleep = true;
             //Timer
             speicher.addToTimer(1);
             //Cycles

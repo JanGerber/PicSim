@@ -15,8 +15,8 @@ namespace PicSimulator.ViewModels {
         private bool interrupt;
         Dictionary<int, String> stackAusgabe;
         private int psa_counter;
-        private double frequenz;
-        private int timeInyS;
+        private double frequenz; // MHz
+        private int timeInyS; //in Mikrosekunde
         private WhatchdogTimer wdt;
 
 
@@ -396,6 +396,7 @@ namespace PicSimulator.ViewModels {
         public void addToCycles(int pCycles)
         {
             Cycles += (ulong) pCycles;
+            Wdt.addToWDT(pCycles);
             berechneTime();
         }
         public void setZeroBit(bool wert) {

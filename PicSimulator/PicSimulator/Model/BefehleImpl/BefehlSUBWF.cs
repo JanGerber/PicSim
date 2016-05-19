@@ -25,6 +25,9 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
+            //PCL
+            speicher.setRegister(2, (byte)(programmCounter + 1));
+            //
             bool isStoredW;
             int result = speicher.getRegister(getParameter(speicher, parameter1)) - speicher.WRegister;
             if(parameter2) { // if parameter2 is true than store the result in the register
@@ -53,8 +56,7 @@ namespace PicSimulator.Model {
             //Gesamt Cycles und TMR0
             speicher.addToCycles(1);
             speicher.addToTimer(1);
-            //PCL
-            speicher.setRegister(2, (byte)(programmCounter + 1));
+           
             return programmCounter + 1;
         }
     }

@@ -23,6 +23,9 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
+            //PCL
+            speicher.setRegister(2, (byte)(programmCounter + 1));
+            //
             int result = parameter1 - speicher.WRegister;
             speicher.WRegister = (byte)result;
             //Status Affected: C, DC, Z
@@ -44,8 +47,7 @@ namespace PicSimulator.Model {
             //Gesamt Cycles und TMR0
             speicher.addToCycles(1);
             speicher.addToTimer(1);
-            //PCL
-            speicher.setRegister(2, (byte)(programmCounter + 1));
+           
             return 1 + programmCounter;
         }
     }

@@ -80,7 +80,9 @@ namespace PicSimulator.ViewModels {
 
         public int ProgrammCounter {
             get {
-                return programmCounter;
+               // int pch = speicher.getRegister(0x0A) << 8;
+
+                return ((programmCounter & 0xFF00) + speicher.getRegister(2)); /* pch + speicher.getRegister(2);*/
             }
 
             set {
@@ -92,10 +94,10 @@ namespace PicSimulator.ViewModels {
                         befehl.Value.Background = Brushes.White;
                     }
                 }
-                Speicher.setRegister(2,(byte) value); //set PCL
+              //  Speicher.setRegister(2, (byte)value); //set PCL
                 int newPCLath = (int)Speicher.getRegister(0x0A) >> 8;
                 newPCLath = newPCLath & 0x1F; //
-                Speicher.setRegister(0x0A,(byte)newPCLath); //set PCH
+                Speicher.setRegister(0x0A, (byte)newPCLath); //set PCH
                 NotifyOfPropertyChange(() => ProgrammCounter);
             }
         }
@@ -193,14 +195,18 @@ namespace PicSimulator.ViewModels {
         private void worker_StartProgrammThread(object sender, DoWorkEventArgs e) {
             System.Console.WriteLine("StartProgrammThread");
             while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
-                if (speicher.Interrupt) {
-                    speicher.Interrupt = false;
-                    speicher.pushStack(ProgrammCounter + 1);
-                    Speicher.setRegister(2, 4); //set PCL
-                    Speicher.setRegister(0x0A, 0); //set PCH
-                    ProgrammCounter = 4;
+                if (!speicher.Wdt.Sleep) { //Ist momentan 
+                    if (speicher.Interrupt) {
+                        speicher.Interrupt = false;
+                        speicher.pushStack(ProgrammCounter + 1);
+                        Speicher.setRegister(2, 4); //set PCL
+                        Speicher.setRegister(0x0A, 0); //set PCH
+                        ProgrammCounter = 4;
+                    }
+                    ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
+                }else {
+                    speicher.Wdt.addToWDT();
                 }
-                ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
             }
         }
         private void worker_StartProgrammrCompleted(object sender, RunWorkerCompletedEventArgs e) {
