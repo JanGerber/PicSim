@@ -6,7 +6,7 @@ namespace PicSimulator.ViewModels {
         private bool sleep;
         private int wdtCycles;
         private int prescalerCounter;
-        
+        private bool wdtNormalTimeout;
 
         public bool Sleep {
             get {
@@ -31,6 +31,16 @@ namespace PicSimulator.ViewModels {
                     }
                 }
                 wdtCycles = value;
+            }
+        }
+
+        public bool WdtNormalTimeout {
+            get {
+                return wdtNormalTimeout;
+            }
+
+            set {
+                wdtNormalTimeout = value;
             }
         }
 
@@ -134,10 +144,11 @@ namespace PicSimulator.ViewModels {
             speicher.Register[0x88] =  0x08; //EECON1
             speicher.Register[0x8A] = 0;//PCLATH
             speicher.Register[0x8B] = (byte)((speicher.Register[0x03] & 0x01)); //INTCON
+            wdtNormalTimeout = true;
         }
         public void wakeUpFromSleep(bool isInterrupt) {
             speicher.Register[0x02] = (byte)(speicher.Register[0x02] + 1); //PCL
-            speicher.Register[0x02] = (byte)(speicher.Register[0x02] + 1);//PCL
+            speicher.Register[0x82] = (byte)(speicher.Register[0x02] + 1);//PCL
             speicher.Register[0x88] = (byte)(speicher.Register[0x88] & 0x0F);//EECON1
 
             if(isInterrupt) {
@@ -147,9 +158,16 @@ namespace PicSimulator.ViewModels {
                 speicher.Register[0x03] = (byte)((speicher.Register[0x03] & 0x07)); //Status 
                 speicher.Register[0x83] = (byte)((speicher.Register[0x03] & 0x07)); //Status    
             }
-
-
-
+            Sleep = false;
+        }
+        public void clearWDT() {
+            wdtCycles = 0;
+            prescalerCounter = 0;
+        }
+        public void clearWdtPrescaler() {
+            if(speicher.getRegisterOhneBank(0x81,3)) { //PSA
+                speicher.Register[0x81] = (byte)(speicher.Register[0x81] & 0xF8);
+            }
         }
     }
 }

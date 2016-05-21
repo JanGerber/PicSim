@@ -21,8 +21,8 @@ namespace PicSimulator.Model {
             }
         }
         public override int ausfuehren(ref Speicher speicher) {
-            //TODO //00h --> WDT
-            //TODO  //0 --> WDT prescaler
+            speicher.Wdt.clearWDT(); //00h --> WDT
+            speicher.Wdt.clearWdtPrescaler();  //0 --> WDT prescaler
          
 
             //Status Affected TO PD
