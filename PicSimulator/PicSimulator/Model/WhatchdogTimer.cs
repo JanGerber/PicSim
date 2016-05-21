@@ -12,7 +12,6 @@ namespace PicSimulator.ViewModels {
             get {
                 return sleep;
             }
-
             set {
                 sleep = value;
             }
@@ -25,7 +24,11 @@ namespace PicSimulator.ViewModels {
 
             set {
                 if(value >= berechneMaxCycles()) {
-                    //TODO
+                    if(sleep) { //Timeout wenn Sleep
+                        wakeUpFromSleep(false);
+                    } else { //Normaler Timeout
+                        wdtResetNormal();
+                    }
                 }
                 wdtCycles = value;
             }
@@ -116,6 +119,37 @@ namespace PicSimulator.ViewModels {
         }
         private double berechneTime(double frequenz, int cycles) {
             return ((cycles / frequenz) * 4);
+        }
+
+        private void wdtResetNormal() {
+            speicher.Register[0x02] = 0; //PCL
+            speicher.Register[0x03] = (byte)((speicher.Register[0x03] & 0x07) + 0x08); //Status
+            speicher.Register[0x0A] = 0; //PCLATH
+            speicher.Register[0x0B] = (byte)((speicher.Register[0x03] & 0x01));//INTCON
+            speicher.Register[0x81] = 0xFF;//OPTION_REG
+            speicher.Register[0x82] = 0;//PCL
+            speicher.Register[0x83] = (byte)((speicher.Register[0x83] & 0x07) + 0x08); //STATUS
+            speicher.Register[0x85] = 0x1F;//TRISA
+            speicher.Register[0x86] = 0xFF;//TRISB
+            speicher.Register[0x88] =  0x08; //EECON1
+            speicher.Register[0x8A] = 0;//PCLATH
+            speicher.Register[0x8B] = (byte)((speicher.Register[0x03] & 0x01)); //INTCON
+        }
+        public void wakeUpFromSleep(bool isInterrupt) {
+            speicher.Register[0x02] = (byte)(speicher.Register[0x02] + 1); //PCL
+            speicher.Register[0x02] = (byte)(speicher.Register[0x02] + 1);//PCL
+            speicher.Register[0x88] = (byte)(speicher.Register[0x88] & 0x0F);//EECON1
+
+            if(isInterrupt) {
+                speicher.Register[0x03] = (byte)((speicher.Register[0x03] & 0xE7) + 0x10); //Status
+                speicher.Register[0x83] = (byte)((speicher.Register[0x03] & 0xE7) + 0x10); //Status
+            } else {
+                speicher.Register[0x03] = (byte)((speicher.Register[0x03] & 0x07)); //Status 
+                speicher.Register[0x83] = (byte)((speicher.Register[0x03] & 0x07)); //Status    
+            }
+
+
+
         }
     }
 }
