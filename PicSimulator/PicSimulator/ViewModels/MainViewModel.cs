@@ -207,7 +207,7 @@ namespace PicSimulator.ViewModels {
             }
 
         }
-        public void OpenHelp() {   //Wird beim Klicken des Buttons Zurücksetzen aufgerufen
+        public void OpenHelp() {   //Wird beim Klicken des Buttons Help aufgerufen
             //Convert The resource Data into Byte[]
             byte[] PDF = Properties.Resources.hilfePic;
             System.IO.MemoryStream ms = new System.IO.MemoryStream(PDF);

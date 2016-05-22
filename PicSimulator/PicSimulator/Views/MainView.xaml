@@ -292,7 +292,7 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <TextBox Grid.Column="0" Grid.Row="1"   Text="Cycles " Grid.ColumnSpan="2" IsReadOnly="True"/>
-                <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.Cycles}"  IsReadOnly="True"/>
+                <TextBox Grid.Column="8" Grid.Row="10"   Text="{Binding Speicher.TimeInyS}"  IsReadOnly="True"/>
             </Grid>
         </DockPanel>
     </Grid>

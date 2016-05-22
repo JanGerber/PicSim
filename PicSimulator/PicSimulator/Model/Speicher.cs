@@ -142,6 +142,7 @@ namespace PicSimulator.ViewModels {
             }
             set {
                 cycles = value;
+                berechneTime();
                 NotifyOfPropertyChange(() => Cycles);
             }
         }
@@ -419,6 +420,9 @@ namespace PicSimulator.ViewModels {
             
         }
         public void pushStack(int addresse) {
+            if(stack.Count == 8) {
+                stack.Clear();
+            }
             stack.Push(addresse);
             NotifyOfPropertyChange(() => StackAusgabe);
         }
@@ -426,7 +430,7 @@ namespace PicSimulator.ViewModels {
             setRegister(3, 1, wert);
         }
         private void berechneTime() {
-            //TODO berechneTime
+            TimeInyS =(int) ((Cycles/ Frequenz) * 4);
             NotifyOfPropertyChange(() => TimeInyS);
         }
 
