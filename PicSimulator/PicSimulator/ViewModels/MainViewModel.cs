@@ -196,14 +196,20 @@ namespace PicSimulator.ViewModels {
             System.Console.WriteLine("StartProgrammThread");
             while (!resetProgramm && !stopProgramm && !_opcodesObj.ElementAt(ProgrammCounter).Value.Breakpoint) { //überprüfung ob in der Zeile Breakpoint gestzt oder Programm Stop
                 if (!speicher.Wdt.Sleep) { //Ist momentan 
-                    if (speicher.Interrupt) {
-                        speicher.Interrupt = false;
-                        speicher.pushStack(ProgrammCounter + 1);
-                        Speicher.setRegister(2, 4); //set PCL
-                        Speicher.setRegister(0x0A, 0); //set PCH
-                        ProgrammCounter = 4;
+                    if(!speicher.Wdt.WdtNormalTimeout) {
+                        if(speicher.Interrupt) {
+                            speicher.Interrupt = false;
+                            speicher.pushStack(ProgrammCounter + 1);
+                            Speicher.setRegister(2, 4); //set PCL
+                            Speicher.setRegister(0x0A, 0); //set PCH
+                            ProgrammCounter = 4;
+                        }
+                        ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
+                    } else {
+                        speicher.Wdt.wdtResetNormal();
+                        speicher.Wdt.WdtNormalTimeout = false;
+                        ProgrammCounter = 0;
                     }
-                    ProgrammCounter = _opcodesObj.ElementAt(ProgrammCounter).Value.ausfuehren(ref speicher);
                 }else {
                     speicher.Wdt.addToWDT();
                 }
