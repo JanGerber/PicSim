@@ -26,7 +26,7 @@ namespace PicSimulator.ViewModels {
                 if(value >= berechneMaxCycles()) {
                     if(sleep) { //Timeout wenn Sleep
                         wakeUpFromSleep(false);
-                    } else { //Normaler Timeout
+                    } else { //Normaler Timeout      
                         wdtNormalTimeout = true;
                     }
                 }
@@ -45,7 +45,7 @@ namespace PicSimulator.ViewModels {
         }
 
         private double berechneMaxCycles() {
-            return 18000 * speicher.Frequenz;
+            return 18000 * speicher.Frequenz; //18000 cycels pro s bei 1Mhz
         }
 
         public WhatchdogTimer(Speicher speicher) {
@@ -145,6 +145,7 @@ namespace PicSimulator.ViewModels {
             speicher.Register[0x8A] = 0;//PCLATH
             speicher.Register[0x8B] = (byte)((speicher.Register[0x03] & 0x01)); //INTCON
             wdtNormalTimeout = true;
+            wdtCycles = 0;
         }
         public void wakeUpFromSleep(bool isInterrupt) {
             speicher.Register[0x02] = (byte)(speicher.Register[0x02] + 1); //PCL
@@ -159,6 +160,7 @@ namespace PicSimulator.ViewModels {
                 speicher.Register[0x83] = (byte)((speicher.Register[0x03] & 0x07)); //Status    
             }
             Sleep = false;
+            wdtCycles = 0;
         }
         public void clearWDT() {
             wdtCycles = 0;
