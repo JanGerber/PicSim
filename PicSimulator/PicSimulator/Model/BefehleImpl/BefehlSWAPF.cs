@@ -31,7 +31,7 @@ namespace PicSimulator.Model {
             //PCL
             speicher.setRegister(2, (byte)(programmCounter + 1));
             //
-            int result = (speicher.getRegister(getParameter(speicher, parameter1)) & 0x0F) + (speicher.getRegister(getParameter(speicher, parameter1)) & 0xF0);
+            int result = ((speicher.getRegister(getParameter(speicher, parameter1)) & 0x0F)<< 4) + ((speicher.getRegister(getParameter(speicher, parameter1)) & 0xF0) >> 4 );
             if(parameter2) { // if parameter2 is true than store the result in the register
                 speicher.setRegister(getParameter(speicher, parameter1), (byte)(result));
             } else { //otherwise in the W-Register

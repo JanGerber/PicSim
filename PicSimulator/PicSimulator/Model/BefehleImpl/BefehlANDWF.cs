@@ -29,23 +29,31 @@ namespace PicSimulator.Model {
             speicher.setRegister(2, (byte)(programmCounter + 1));
             //
             bool isStoredW;
-            if(parameter2) { // if parameter2 is true than store the result in the register
+            if (parameter2) { // if parameter2 is true than store the result in the register
                 speicher.setRegister(getParameter(speicher, parameter1), (byte)(speicher.WRegister & speicher.getRegister(getParameter(speicher, parameter1))));
                 isStoredW = false;
             } else { //otherwise in the W-Register
-                speicher.WRegister =(byte)(speicher.WRegister & speicher.getRegister(getParameter(speicher, parameter1)));
+                speicher.WRegister = (byte)(speicher.WRegister & speicher.getRegister(getParameter(speicher, parameter1)));
                 isStoredW = true;
             }
             //Status Affected Z
-                if(isStoredW) {
-                    if(speicher.WRegister == 0) { speicher.setZeroBit(true); }
+            if (isStoredW) {
+                if (speicher.WRegister == 0) {
+                    speicher.setZeroBit(true);
                 } else {
-                    if(speicher.getRegister(getParameter(speicher, parameter1)) == 0) { speicher.setZeroBit(true); }
+                    speicher.setZeroBit(false);
                 }
+            } else {
+                if (speicher.getRegister(getParameter(speicher, parameter1)) == 0) {
+                    speicher.setZeroBit(true);
+                } else {
+                    speicher.setZeroBit(false);
+                }
+            }
             //Cycles and Timer
             speicher.addToTimer(1);
             speicher.addToCycles(1);
-            
+
             return programmCounter + 1;
         }
     }

@@ -80,9 +80,12 @@ namespace PicSimulator.ViewModels {
 
         public int ProgrammCounter {
             get {
-               // int pch = speicher.getRegister(0x0A) << 8;
-
-                return ((programmCounter & 0xFF00) + speicher.getRegister(2)); /* pch + speicher.getRegister(2);*/
+                // int pch = speicher.getRegister(0x0A) << 8;
+                int newProgrammCounter = ((programmCounter & 0xFF00) + speicher.getRegister(2));
+                if (newProgrammCounter > OpcodesObj.Last().Key) {
+                    newProgrammCounter = OpcodesObj.Last().Key;
+                }
+                return newProgrammCounter; /* pch + speicher.getRegister(2);*/
             }
 
             set {
@@ -207,6 +210,7 @@ namespace PicSimulator.ViewModels {
             }
 
         }
+
         public void OpenHelp() {   //Wird beim Klicken des Buttons Help aufgerufen
             //Convert The resource Data into Byte[]
             byte[] PDF = Properties.Resources.hilfePic;

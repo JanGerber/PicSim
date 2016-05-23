@@ -41,11 +41,15 @@ namespace PicSimulator.Model {
                 if(isStoredW) {
                     if(speicher.WRegister == 0) {
                         speicher.setZeroBit(true);
-                    }
+                } else {
+                    speicher.setZeroBit(false);
+                }
                 }else {
                     if(speicher.getRegister(getParameter(speicher, parameter1)) == 0) {
                         speicher.setZeroBit(true);
-                    }
+                } else {
+                    speicher.setZeroBit(false);
+                }
                 }
             //Gesamt Cycles und TMR0
                 speicher.addToCycles(1);

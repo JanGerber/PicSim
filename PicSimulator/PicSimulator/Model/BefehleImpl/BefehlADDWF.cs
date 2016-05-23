@@ -30,34 +30,42 @@ namespace PicSimulator.Model {
             speicher.setRegister(2, (byte)(programmCounter + 1));
             //auszufuehrender Code
             bool isStoredW;
-            int result = speicher.WRegister + speicher.getRegister(getParameter(speicher,parameter1));
-            if(parameter2) { // if parameter2 is true than store the result in the register
+            int result = speicher.WRegister + speicher.getRegister(getParameter(speicher, parameter1));
+            if (parameter2) { // if parameter2 is true than store the result in the register
                 speicher.setRegister(getParameter(speicher, parameter1), (byte)result);
                 isStoredW = false;
             } else { //otherwise in the W-Register
                 speicher.WRegister = (byte)result;
                 isStoredW = true;
             }
-            
+
             //Status affected C DC Z 
-                if ((speicher.WRegister & 0x0F) + (speicher.getRegister(getParameter(speicher, parameter1)) & 0x0F) > 15) {
-                    speicher.setDigitCarryBit(true);
-                } else {
-                    speicher.setDigitCarryBit(false);
-                }
+            if ((speicher.WRegister & 0x0F) + (speicher.getRegister(getParameter(speicher, parameter1)) & 0x0F) > 15) {
+                speicher.setDigitCarryBit(true);
+            } else {
+                speicher.setDigitCarryBit(false);
+            }
             if (((result >> 8) & 1) == 1) {
-                    speicher.setCarryBit(true);
+                speicher.setCarryBit(true);
+            } else {
+                speicher.setCarryBit(false);
+            }
+            if (isStoredW) {
+                if (speicher.WRegister == 0) {
+                    speicher.setZeroBit(true);
                 } else {
-                    speicher.setCarryBit(false);
+                    speicher.setZeroBit(false);
                 }
-                if(isStoredW) {
-                    if(speicher.WRegister == 0) { speicher.setZeroBit(true); }
+            } else {
+                if (speicher.getRegister(getParameter(speicher, parameter1)) == 0) {
+                    speicher.setZeroBit(true);
                 } else {
-                    if(speicher.getRegister(getParameter(speicher, parameter1)) == 0) { speicher.setZeroBit(true); }
+                    speicher.setZeroBit(false);
                 }
+            }
             //Gesamt Cycles und TMR0
             speicher.addToCycles(1);
-            speicher.addToTimer(1);           
+            speicher.addToTimer(1);
             return programmCounter + 1;
         }
     }
