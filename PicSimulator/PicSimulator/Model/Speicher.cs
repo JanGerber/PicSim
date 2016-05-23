@@ -177,11 +177,13 @@ namespace PicSimulator.ViewModels {
                 frequenz = value;
                 berechneTime();
                 NotifyOfPropertyChange(() => Frequenz);
+                NotifyOfPropertyChange(() => TimeInyS);
             }
         }
 
         public int TimeInyS {
             get {
+               
                 return timeInyS;
             }
             set {
@@ -430,8 +432,7 @@ namespace PicSimulator.ViewModels {
             setRegister(3, 1, wert);
         }
         private void berechneTime() {
-            TimeInyS =(int) ((Cycles/ Frequenz) * 4);
-            NotifyOfPropertyChange(() => TimeInyS);
+            TimeInyS =(int) (Cycles/ Frequenz);
         }
 
     }
