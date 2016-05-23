@@ -199,7 +199,7 @@ namespace PicSimulator.ViewModels {
                 Speicher = new Speicher();
                 resetProgramm = false;
                 ProgrammCounter = 0;
-                foreach (KeyValuePair<int, BefehlViewModel> befehl in OpcodesObj) { //Workaround aktueller ProgrammCounter anpassung der Hintergrundfarbe
+                foreach (KeyValuePair<int, BefehlViewModel> befehl in OpcodesObj) { // aktueller ProgrammCounter anpassung der Hintergrundfarbe
                     if (befehl.Value.ProgrammCounter == ProgrammCounter) {
                         befehl.Value.Background = Brushes.LightGray;
                     } else {

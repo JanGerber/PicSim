@@ -34,7 +34,7 @@ namespace PicSimulator.Model {
             //Gesamt Cycles und TMR0
             speicher.addToCycles(1);
             speicher.addToTimer(1);
-           
+
             return programmCounter + 1;
         }
     }

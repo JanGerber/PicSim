@@ -330,7 +330,7 @@ namespace PicSimulator.ViewModels {
                         }
                         break;
                     case 1:
-                        if (psa_counter >= 4) {
+                        if (psa_counter >= 2) { 
                             erhoeheTimer0counter();
                             psa_counter = 0;
                         }
