@@ -330,7 +330,7 @@ namespace PicSimulator.ViewModels {
                         }
                         break;
                     case 1:
-                        if (psa_counter >= 2) { 
+                        if (psa_counter >= 2) { //wegen Ablauf Programm Nr 7
                             erhoeheTimer0counter();
                             psa_counter = 0;
                         }
@@ -432,7 +432,7 @@ namespace PicSimulator.ViewModels {
             setRegister(3, 1, wert);
         }
         private void berechneTime() {
-            TimeInyS =(int) (Cycles/ Frequenz);
+            TimeInyS =(int) (Cycles/ Frequenz*4);
         }
 
     }
